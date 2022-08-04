@@ -1,0 +1,30 @@
+.list-button-notes {
+    display: flex;
+    gap: 10px;
+}
+
+button {
+    padding: 10px 15px;
+    border: none;
+}
+
+.active-notes {
+    background-color: #75C3FF;
+    color: #FFFFFF;
+    border: 1px solid #25A0FF;
+    border-radius: 8px;
+}
+
+.archieve-notes {
+    background-color: #FFFFFF;
+    color: #75C3FF;
+    border: 1px solid #75C3FF;
+    border-radius: 8px;
+}
+
+.add-new-button {
+    background-color: #75C3FF;
+    color: #FFFFFF;
+    border: 1px solid #25A0FF;
+    border-radius: 16px;
+}

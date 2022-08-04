@@ -8,7 +8,7 @@ const CardItem = () => {
       {/* title and dates notes */}
       <div className="card-item-header">
         <p className="dates-item">31 Juli, 2022</p>
-        <p className="title-item">Penggunaan React Hook</p>
+        <h4 className="title-item">Penggunaan React Hook</h4>
       </div>
       {/* content of card item */}
       <div className="card-item-body">

@@ -23,8 +23,17 @@ button {
 }
 
 .add-new-button {
-    background-color: #75C3FF;
+    background-color: #25A0FF;
     color: #FFFFFF;
     border: 1px solid #25A0FF;
-    border-radius: 16px;
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.add-new-button i {
+    display: flex;
+    align-items: center;
+    font-size: 20px;
 }

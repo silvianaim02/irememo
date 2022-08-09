@@ -10,17 +10,33 @@
   border: none;
   box-sizing: border-box;
   text-indent: 35px;
-  color: #75C3FF;
+  color: #75c3ff;
 }
 
 .input-bar::-webkit-input-placeholder {
-    color: #75C3FF;
+  color: #75c3ff;
 }
 
-.search-bar i {
+.search-bar .search-icon {
   position: absolute;
   top: 0;
-  margin-top: 10px;
+  height: 33px;
   left: 15px;
-  color: #75C3FF;
+  color: #75c3ff;
+  display: flex;
+  align-items: center;
+}
+
+.reset-button {
+  position: absolute;
+  top: 0;
+  right: 15px;
+  height: 33px;
+  width: fit-content;
+  color: red;
+  font-size: larger;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }

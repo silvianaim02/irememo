@@ -3,14 +3,14 @@ import "./Navbar.css"
 import logo from  "../../images/logo.png"
 import SearchBar from "../SearchBar/SearchBar";
 
-const Navbar = () => {
+const Navbar = ({setSearchField}) => {
   return (
     <>
       <nav>
         <div className="logo">
           <img src={logo} alt="logo" />
         </div>
-        <SearchBar />
+        <SearchBar setSearchField={setSearchField} />
       </nav>
     </>
   );

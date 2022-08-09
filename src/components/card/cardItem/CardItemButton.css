@@ -6,8 +6,8 @@
 
 .delete-button {
   background-color: #ffffff;
-  color: #EC6161;
-  border: 1px solid #EC6161;
+  color: #ec6161;
+  border: 1px solid #ec6161;
   border-radius: 8px;
   padding: 5px 15px;
   width: 100%;
@@ -15,9 +15,16 @@
   align-items: center;
   justify-content: center;
   gap: 2px;
+  cursor: pointer;
 }
 
-.archieve-button {
+.delete-button:hover {
+  background-color: #ec6161;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+}
+
+.archive-button {
   background-color: #75c3ff;
   color: #ffffff;
   border: 1px solid #25a0ff;
@@ -28,4 +35,11 @@
   align-items: center;
   justify-content: center;
   gap: 2px;
+  cursor: pointer;
+}
+
+.archive-button:hover {
+  background-color: #ffffff;
+  color: #75c3ff;
+  border: 1px solid #25a0ff;
 }

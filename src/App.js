@@ -1,14 +1,16 @@
-import React from 'react'
-import MainContent from './components/MainContent/MainContent'
-import Navbar from './components/Navbar/Navbar'
+import React, { useState } from "react";
+import MainContent from "./components/MainContent/MainContent";
+import Navbar from "./components/Navbar/Navbar";
 
 const App = () => {
-  return (
-    <div className='irememo-app'>
-        <Navbar />
-        <MainContent />
-    </div>
-  )
-}
+  const [searchField, setSearchField] = useState("");
 
-export default App
+  return (
+    <div className="irememo-app">
+      <Navbar setSearchField={setSearchField} />
+      <MainContent searchField={searchField} setSearchField={setSearchField} />
+    </div>
+  );
+};
+
+export default App;

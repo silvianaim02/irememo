@@ -1,14 +1,22 @@
 import React from "react";
 import "./button.css";
 import { AiOutlinePlusCircle } from "react-icons/ai";
+import Modal from "../Modal/Modal";
 
-const NewNoteButton = () => {
+const NewNoteButton = ({ visibleModal, onModalHandler, addNotes }) => {
   return (
     <>
-      <button className="add-new-button">
-        <i><AiOutlinePlusCircle /></i>
+      <button onClick={onModalHandler} className="add-new-button">
+        <i>
+          <AiOutlinePlusCircle />
+        </i>
         <p>Add New Notes</p>
       </button>
+      <Modal
+        visibleModal={visibleModal}
+        onModalHandler={onModalHandler}
+        addNotes={addNotes}
+      />
     </>
   );
 };

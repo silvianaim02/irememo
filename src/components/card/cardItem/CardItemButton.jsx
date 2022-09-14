@@ -2,6 +2,7 @@ import React from "react";
 import "./CardItemButton.css";
 import { AiOutlineDelete } from "react-icons/ai";
 import { FaRegFileArchive } from "react-icons/fa";
+import PropTypes from "prop-types";
 
 const CardItemButton = ({ id, onDelete, onArchive, archived }) => {
   return (
@@ -30,6 +31,13 @@ const CardItemButton = ({ id, onDelete, onArchive, archived }) => {
       </div>
     </>
   );
+};
+
+CardItemButton.propTypes = {
+  id: PropTypes.string.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onArchive: PropTypes.func.isRequired,
+  archived: PropTypes.bool.isRequired,
 };
 
 export default CardItemButton;

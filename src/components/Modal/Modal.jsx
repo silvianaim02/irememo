@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Modal.css";
+import PropTypes from 'prop-types'
 
 const Modal = ({ visibleModal, onModalHandler, addNotes }) => {
   const [title, setTitle] = useState("");
@@ -75,5 +76,11 @@ const Modal = ({ visibleModal, onModalHandler, addNotes }) => {
     </>
   );
 };
+
+Modal.propTypes = {
+  visibleModal: PropTypes.bool.isRequired,
+  addNotes: PropTypes.func.isRequired,
+  onModalHandler: PropTypes.func.isRequired,
+}
 
 export default Modal;

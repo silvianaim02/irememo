@@ -2,6 +2,7 @@ import React from "react";
 import { showFormattedDate } from "../../utils";
 import CardItemButton from "../card/cardItem/CardItemButton";
 import "./Detail.css";
+import PropTypes from 'prop-types'
 
 const Detail = ({ detailNote, onDelete, onArchive }) => {
   return (
@@ -26,5 +27,11 @@ const Detail = ({ detailNote, onDelete, onArchive }) => {
     </>
   );
 };
+
+Detail.propTypes = {
+  detailNote: PropTypes.object.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onArchive: PropTypes.func.isRequired,
+}
 
 export default Detail;

@@ -72,8 +72,6 @@ const App = () => {
     setVisibleModal(!visibleModal);
   };
 
-  console.log(onAddNotesHandler)
-
   return (
     <div className="irememo-app">
       <header>

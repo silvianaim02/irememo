@@ -3,9 +3,9 @@ import "./CardItem.css";
 import { Link } from "react-router-dom";
 import ReadMoreButton from "../../button/ReadMoreButton";
 import { showFormattedDate } from "../../../utils";
+import PropTypes from 'prop-types'
 
-const CardItem = (props) => {
-  const { id, title, body, createdAt } = props;
+const CardItem = ({ id, title, body, createdAt }) => {
 
   return (
     <>
@@ -28,5 +28,12 @@ const CardItem = (props) => {
     </>
   );
 };
+
+CardItem.propTypes = {
+  id: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  body: PropTypes.string.isRequired,
+  createdAt: PropTypes.string.isRequired,
+}
 
 export default CardItem;

@@ -1,7 +1,6 @@
 .list-button-card-item {
   display: flex;
   gap: 10px;
-  justify-content: space-between;
 }
 
 .delete-button {
@@ -10,7 +9,6 @@
   border: 1px solid #ec6161;
   border-radius: 8px;
   padding: 5px 15px;
-  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -30,7 +28,6 @@
   border: 1px solid #25a0ff;
   border-radius: 8px;
   padding: 1px 15px;
-  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;

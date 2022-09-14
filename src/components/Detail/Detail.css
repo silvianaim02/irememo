@@ -1,0 +1,19 @@
+.content-wrapper {
+  margin: 36px 100px;
+  width: 80%;
+}
+
+.delete-archive-button {
+  margin-bottom: 30px;
+}
+
+.line-gap {
+  margin: 10px 0;
+}
+
+.dates-text {
+  color: #75c3ff;
+  font-weight: 100;
+  font-size: small;
+  padding-bottom: 10px;
+}

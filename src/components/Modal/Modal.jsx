@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Modal.css";
 
 const Modal = ({ visibleModal, onModalHandler, addNotes }) => {
@@ -6,6 +7,7 @@ const Modal = ({ visibleModal, onModalHandler, addNotes }) => {
   const [body, setBody] = useState("");
   const charLimit = 50;
   const currentChar = charLimit - title.length;
+  const navigate = useNavigate();
 
   const resetInputState = () => {
     setTitle("");
@@ -17,6 +19,7 @@ const Modal = ({ visibleModal, onModalHandler, addNotes }) => {
     e.preventDefault();
     addNotes({ title, body });
     resetInputState();
+    navigate('/');
   };
 
   if (!visibleModal) {
@@ -41,7 +44,6 @@ const Modal = ({ visibleModal, onModalHandler, addNotes }) => {
             <input
               type="text"
               placeholder="Title"
-              required
               value={title}
               onChange={(e) => {
                 setTitle(e.target.value.slice(0, charLimit));

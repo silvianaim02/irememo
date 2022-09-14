@@ -1,28 +1,29 @@
 import React from "react";
-import CardItemButton from "./CardItemButton";
 import "./CardItem.css";
+import { Link } from "react-router-dom";
+import ReadMoreButton from "../../button/ReadMoreButton";
+import { showFormattedDate } from "../../../utils";
 
 const CardItem = (props) => {
-  const { id, title, body, createdAt, archived, onDelete, onArchive } = props;
+  const { id, title, body, createdAt } = props;
 
   return (
     <>
       <div className="card-item-wrapper">
         <div className="card-item-header">
           <p className="dates-item">
-            {new Date(createdAt).toLocaleString("id-ID")}
+            {showFormattedDate(createdAt)}
           </p>
-          <h4 className="title-item">{title}</h4>
+          <Link to={`/notes/${id}`} className="dec-none">
+            <h4 className="title-item">{title}</h4>
+          </Link>
         </div>
         <div className="card-item-body">
           <p>{body}</p>
         </div>
-        <CardItemButton
-          id={id}
-          onDelete={onDelete}
-          onArchive={onArchive}
-          archived={archived}
-        />
+        <Link to={`/notes/${id}`}>
+          <ReadMoreButton />
+        </Link>
       </div>
     </>
   );

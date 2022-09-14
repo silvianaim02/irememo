@@ -1,15 +1,33 @@
 nav {
   background-color: #75c3ff;
-  height: 64px;
+  width: 100%;
+  height: 80px;
   padding: 10px 100px;
-  box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
 }
 
 nav img {
-  height: 40px;
+  height: 30px;
 }
 
+.nav-list {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
 
+.nav-items {
+  display: flex;
+  align-items: center;
+  gap: 2em;
+}
+
+.logo {
+  text-decoration: none;
+  cursor: pointer;
+  background-color: #75c3ff;
+}

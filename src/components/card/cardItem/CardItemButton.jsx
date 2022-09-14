@@ -10,7 +10,7 @@ const CardItemButton = ({ id, onDelete, onArchive, archived }) => {
         <button
           className="delete-button"
           type="submit"
-          onClick={() => onDelete(id)}
+          onClick={(e) => onDelete(id)}
         >
           <i>
             <AiOutlineDelete />{" "}

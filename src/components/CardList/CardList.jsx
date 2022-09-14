@@ -3,7 +3,7 @@ import "./CardList.css";
 import CardItem from "../card/cardItem/CardItem";
 import emptyNoteImg from "../../images/empty-note.svg";
 
-const CardList = ({ notes, onDelete, onArchive }) => {
+const CardList = ({ notes }) => {
   return (
     <>
       <div className="card-list">
@@ -16,9 +16,6 @@ const CardList = ({ notes, onDelete, onArchive }) => {
               title={note.title}
               body={note.body}
               createdAt={note.createdAt}
-              archived={note.archived}
-              onDelete={onDelete}
-              onArchive={onArchive}
             />
           ))
         ) : (

@@ -24,10 +24,15 @@
   font-weight: bold;
   font-size: medium;
   padding-bottom: 10px;
+  text-decoration: none;
+}
+
+.dec-none {
+  text-decoration: none;
 }
 
 .card-item-body {
-  height: 250px;
+  height: 100px;
 }
 
 .card-item-body p {
@@ -35,5 +40,8 @@
   font-weight: normal;
   font-size: medium;
   letter-spacing: 1px;
-  padding-bottom: 10px;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden; 
 }

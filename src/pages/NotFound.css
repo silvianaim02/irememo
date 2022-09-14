@@ -1,0 +1,31 @@
+.not-found-wrapper {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.not-found-block {
+  text-align: center;
+}
+
+.not-found-block img {
+  width: 300px;
+  height: 300px;
+}
+
+.title-not-found {
+    margin-bottom: 16px;
+}
+
+.not-found-block .go-home {
+    background-color: #75C3FF;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.not-found-block .go-home,
+.not-found-block .title-not-found {
+  color: #4b4747;
+  text-decoration: none;
+}

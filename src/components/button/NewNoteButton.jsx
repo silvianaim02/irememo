@@ -1,5 +1,5 @@
 import React from "react";
-import "./button.css";
+import "./NewNoteButton.css";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import Modal from "../Modal/Modal";
 

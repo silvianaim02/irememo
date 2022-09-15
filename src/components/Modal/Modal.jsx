@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Modal.css";
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types";
 
 const Modal = ({ visibleModal, onModalHandler, addNotes }) => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
+  const [requiredErr, setRequiredErr] = useState(false);
   const charLimit = 50;
   const currentChar = charLimit - title.length;
   const navigate = useNavigate();
@@ -13,14 +14,19 @@ const Modal = ({ visibleModal, onModalHandler, addNotes }) => {
   const resetInputState = () => {
     setTitle("");
     setBody("");
+    setRequiredErr(false);
     onModalHandler();
   };
 
   const onNoteSubmitHandler = (e) => {
     e.preventDefault();
-    addNotes({ title, body });
-    resetInputState();
-    navigate('/');
+    if (body.length < 1) {
+      setRequiredErr(true);
+    } else {
+      addNotes({ title, body });
+      resetInputState();
+      navigate("/");
+    }
   };
 
   if (!visibleModal) {
@@ -35,9 +41,7 @@ const Modal = ({ visibleModal, onModalHandler, addNotes }) => {
             <h4 className="modal-title">Create a Note</h4>
             <div className="remaining-text">
               {currentChar === 0 ? (
-                <p className="limit-text">
-                  Remaining character : {currentChar}
-                </p>
+                <p className="red-text">Remaining character : {currentChar}</p>
               ) : (
                 <p>Remaining character : {currentChar}</p>
               )}
@@ -54,20 +58,24 @@ const Modal = ({ visibleModal, onModalHandler, addNotes }) => {
               name="content"
               cols="30"
               rows="10"
-              required
               placeholder="Write your note in here..."
               value={body}
-              onChange={(e) => setBody(e.target.value)}
+              onChange={(e) => {
+                setBody(e.target.value);
+                if (body.length >= 1) {
+                  setRequiredErr(false);
+                }
+              }}
             ></textarea>
+            {requiredErr ? (
+              <p className="red-text">note cannot be empty</p>
+            ) : null}
           </div>
           <div className="modal-footer">
             <button onClick={resetInputState} className="button-cancel">
               Cancel
             </button>
-            <button
-              type="submit"
-              className="button-create"
-            >
+            <button type="submit" className="button-create">
               Create
             </button>
           </div>
@@ -81,6 +89,6 @@ Modal.propTypes = {
   visibleModal: PropTypes.bool.isRequired,
   addNotes: PropTypes.func.isRequired,
   onModalHandler: PropTypes.func.isRequired,
-}
+};
 
 export default Modal;

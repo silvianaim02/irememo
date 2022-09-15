@@ -1,26 +1,26 @@
 .list-button-notes {
-    display: flex;
-    gap: 10px;
+  display: flex;
+  gap: 10px;
 }
 
 button {
-    padding: 10px 15px;
-    border: none;
+  padding: 10px 15px;
+  border: none;
 }
 
 .add-new-button {
-    background-color: #25A0FF;
-    color: #FFFFFF;
-    border: 1px solid #25A0FF;
-    border-radius: 24px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    cursor: pointer;
+  background-color: #25a0ff;
+  color: #ffffff;
+  border: 1px solid #25a0ff;
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
 }
 
 .add-new-button i {
-    display: flex;
-    align-items: center;
-    font-size: 20px;
+  display: flex;
+  align-items: center;
+  font-size: 20px;
 }

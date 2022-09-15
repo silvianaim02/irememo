@@ -3,7 +3,7 @@ import "./Navbar.css";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../images/logo.png";
 import SearchBar from "../SearchBar/SearchBar";
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types";
 
 const Navbar = ({ setSearchField, onSearch }) => {
   const navigate = useNavigate();
@@ -98,6 +98,6 @@ const Navbar = ({ setSearchField, onSearch }) => {
 Navbar.propTypes = {
   setSearchField: PropTypes.func.isRequired,
   onSearch: PropTypes.func.isRequired,
-}
+};
 
 export default Navbar;

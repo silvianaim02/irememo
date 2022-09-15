@@ -15,13 +15,13 @@
 }
 
 .title-not-found {
-    margin-bottom: 16px;
+  margin-bottom: 16px;
 }
 
 .not-found-block .go-home {
-    background-color: #75C3FF;
-    padding: 4px 8px;
-    border-radius: 4px;
+  background-color: #75c3ff;
+  padding: 4px 8px;
+  border-radius: 4px;
 }
 
 .not-found-block .go-home,

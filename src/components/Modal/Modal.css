@@ -72,18 +72,21 @@
   font-size: small;
   text-align: right;
 }
-.remaining-text .limit-text {
+
+.red-text {
   color: red;
+  font-size: small;
+  text-align: right;
 }
 
 .button-cancel {
-    background-color: #aadaff;
-    cursor: pointer;
+  background-color: #aadaff;
+  cursor: pointer;
 }
 
 .button-create {
-    background-color: #25A0FF;
-    color: #ffffff;
-    border-radius: 8px;
-    cursor: pointer;
+  background-color: #25a0ff;
+  color: #ffffff;
+  border-radius: 8px;
+  cursor: pointer;
 }

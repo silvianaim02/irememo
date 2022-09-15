@@ -2,7 +2,7 @@ import React from "react";
 import "./CardList.css";
 import CardItem from "../card/cardItem/CardItem";
 import emptyNoteImg from "../../images/empty-note.svg";
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types";
 
 const CardList = ({ notes }) => {
   return (
@@ -31,6 +31,6 @@ const CardList = ({ notes }) => {
 
 CardList.propTypes = {
   notes: PropTypes.arrayOf(PropTypes.object),
-}
+};
 
 export default CardList;

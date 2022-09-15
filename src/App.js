@@ -1,12 +1,17 @@
 import React, { useState } from "react";
-import { Navigate, Route, Routes, useNavigate, useSearchParams } from "react-router-dom";
+import {
+  Navigate,
+  Route,
+  Routes,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 import { getInitialData } from "./utils";
 import Navbar from "./components/Navbar/Navbar";
 import ArchivePage from "./pages/ArchivePage";
 import DetailPage from "./pages/DetailPage";
 import HomePage from "./pages/HomePage";
 import NotFound from "./pages/NotFound";
-import Modal from "./components/Modal/Modal";
 
 const App = () => {
   const navigate = useNavigate();
@@ -39,7 +44,7 @@ const App = () => {
       ...notes,
       {
         id: `notes-${+new Date()}`,
-        title: title || '(untitled)',
+        title: title || "(untitled)",
         body,
         createdAt: new Date().toISOString(),
         archived: false,

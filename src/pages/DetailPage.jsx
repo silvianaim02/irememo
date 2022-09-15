@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 import Detail from "../components/Detail/Detail";
 import NotFound from "./NotFound";
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types";
 
 function getNotes(noteId, notes) {
   if (!noteId) {
@@ -40,6 +40,6 @@ DetailPage.propTypes = {
   notes: PropTypes.arrayOf(PropTypes.object).isRequired,
   onDelete: PropTypes.func.isRequired,
   onArchive: PropTypes.func.isRequired,
-}
+};
 
 export default DetailPage;

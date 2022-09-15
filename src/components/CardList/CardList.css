@@ -1,11 +1,11 @@
 .card-list {
-    width: 100%;
-    display: flex;
-    gap: 24px;
-    flex-wrap: wrap;
+  width: 100%;
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
 }
 
 .empty-notes {
-    display: block;
-    margin: auto
+  display: block;
+  margin: auto;
 }

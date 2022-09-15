@@ -2,7 +2,7 @@ import React from "react";
 import "./SearchBar.css";
 import { BiSearchAlt2 } from "react-icons/bi";
 import { IoIosCloseCircle } from "react-icons/io";
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types";
 
 const SearchBar = ({ setSearchField, onSearch, onTyping, setOnTyping }) => {
   const onChange = (e) => {
@@ -46,8 +46,8 @@ const SearchBar = ({ setSearchField, onSearch, onTyping, setOnTyping }) => {
 SearchBar.propTypes = {
   setSearchField: PropTypes.func.isRequired,
   onSearch: PropTypes.func.isRequired,
-  onTyping :PropTypes.string.isRequired,
+  onTyping: PropTypes.string.isRequired,
   setOnTyping: PropTypes.func.isRequired,
-}
+};
 
 export default SearchBar;

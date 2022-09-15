@@ -1,6 +1,6 @@
 import React from "react";
 import MainContent from "../components/MainContent/MainContent";
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types";
 
 const HomePage = ({
   filteredActive,
@@ -40,6 +40,6 @@ HomePage.propTypes = {
   setVisibleModal: PropTypes.func.isRequired,
   addNotes: PropTypes.func.isRequired,
   onModalHandler: PropTypes.func.isRequired,
-}
+};
 
 export default HomePage;

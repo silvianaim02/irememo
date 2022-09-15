@@ -2,7 +2,7 @@ import React from "react";
 import "./MainContent.css";
 import CardList from "../CardList/CardList";
 import NewNoteButton from "../button/NewNoteButton";
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types";
 
 const MainContent = ({
   titleTop,
@@ -14,9 +14,8 @@ const MainContent = ({
   onArchive,
   visibleModal,
   addNotes,
-  onModalHandler
+  onModalHandler,
 }) => {
-
   return (
     <>
       <div className="main-content">
@@ -53,6 +52,6 @@ MainContent.propTypes = {
   visibleModal: PropTypes.bool.isRequired,
   addNotes: PropTypes.func.isRequired,
   onModalHandler: PropTypes.func.isRequired,
-}
+};
 
 export default MainContent;

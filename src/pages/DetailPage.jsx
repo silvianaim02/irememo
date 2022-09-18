@@ -21,17 +21,15 @@ const DetailPage = ({ notes, onDelete, onArchive }) => {
 
   return (
     <>
-      <div>
-        {detailNote === null ? (
-          <NotFound />
-        ) : (
-          <Detail
-            detailNote={detailNote}
-            onDelete={onDelete}
-            onArchive={onArchive}
-          />
-        )}
-      </div>
+      {detailNote === null ? (
+        <NotFound />
+      ) : (
+        <Detail
+          detailNote={detailNote}
+          onDelete={onDelete}
+          onArchive={onArchive}
+        />
+      )}
     </>
   );
 };

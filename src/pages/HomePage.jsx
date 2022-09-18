@@ -13,21 +13,17 @@ const HomePage = ({
   onModalHandler,
 }) => {
   return (
-    <>
-      <div>
-        <MainContent
-          titleTop="Active Notes"
-          filteredActive={filteredActive}
-          activeNotes={activeNotes}
-          onDelete={onDelete}
-          onArchive={onArchive}
-          visibleModal={visibleModal}
-          setVisibleModal={setVisibleModal}
-          addNotes={addNotes}
-          onModalHandler={onModalHandler}
-        />
-      </div>
-    </>
+    <MainContent
+      titleTop="Active Notes"
+      filteredActive={filteredActive}
+      activeNotes={activeNotes}
+      onDelete={onDelete}
+      onArchive={onArchive}
+      visibleModal={visibleModal}
+      setVisibleModal={setVisibleModal}
+      addNotes={addNotes}
+      onModalHandler={onModalHandler}
+    />
   );
 };
 

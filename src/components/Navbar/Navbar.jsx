@@ -52,6 +52,7 @@ const Navbar = ({ setSearchField, onSearch }) => {
             >
               <NavLink
                 to="/"
+                className="nav-item"
                 style={({ isActive }) =>
                   isActive ? activeStyle : defaultStyle
                 }
@@ -64,6 +65,7 @@ const Navbar = ({ setSearchField, onSearch }) => {
               style={{ backgroundColor: "#75c3ff" }}
             >
               <NavLink
+                className="nav-item"
                 to="archive"
                 style={({ isActive }) =>
                   isActive ? activeStyle : defaultStyle

@@ -26,6 +26,10 @@ nav img {
   gap: 2em;
 }
 
+.nav-item:hover {
+  border-bottom: solid 3px #e9e125;
+}
+
 .logo {
   text-decoration: none;
   cursor: pointer;

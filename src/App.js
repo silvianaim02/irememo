@@ -15,6 +15,7 @@ import NotFound from "./pages/NotFound";
 
 const App = () => {
   const navigate = useNavigate();
+  const [authedUser] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams("");
   const keyword = searchParams.get("keyword");
   const [searchField, setSearchField] = useState(keyword ? keyword : "");
@@ -76,6 +77,26 @@ const App = () => {
   const onModalHandler = () => {
     setVisibleModal(!visibleModal);
   };
+
+  // not user
+  if (authedUser === null) {
+    return (
+      <div className="irememo-app">
+        <header>
+          <Navbar
+            setSearchField={setSearchField}
+            onSearch={updateKeywordUrlSearchParams}
+          />
+        </header>
+        <main>
+          <Routes>
+            <Route path="/*" element={<p>Halaman Login</p>} />
+            <Route path="/register" element={<p>Halaman Register</p>} />
+          </Routes>
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div className="irememo-app">

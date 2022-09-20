@@ -12,6 +12,7 @@ import ArchivePage from "./pages/ArchivePage";
 import DetailPage from "./pages/DetailPage";
 import HomePage from "./pages/HomePage";
 import NotFound from "./pages/NotFound";
+import RegisterPage from "./pages/RegisterPage";
 
 const App = () => {
   const navigate = useNavigate();
@@ -91,7 +92,7 @@ const App = () => {
         <main>
           <Routes>
             <Route path="/*" element={<p>Halaman Login</p>} />
-            <Route path="/register" element={<p>Halaman Register</p>} />
+            <Route path="/register" element={<RegisterPage />} />
           </Routes>
         </main>
       </div>
@@ -159,6 +160,7 @@ const App = () => {
               }
             />
           </Route>
+          <Route path="/register" element={<RegisterPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

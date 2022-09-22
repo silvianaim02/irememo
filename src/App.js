@@ -160,7 +160,6 @@ const App = () => {
               }
             />
           </Route>
-          <Route path="/register" element={<RegisterPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

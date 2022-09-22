@@ -67,51 +67,98 @@ async function getUserLogged() {
   return { error: false, data: responseJson.data };
 }
 
-// async function addContact({ name, tag }) {
-//   const response = await fetchWithToken(`${BASE_URL}/contacts`, {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify({ name, tag }),
-//   });
+async function addNote({ title, body }) {
+  const response = await fetchWithToken(`${BASE_URL}/notes`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ title, body }),
+  });
 
-//   const responseJson = await response.json();
+  const responseJson = await response.json();
 
-//   if (responseJson.status !== 'success') {
-//     alert(responseJson.message);
-//     return { error: true };
-//   }
+  if (responseJson.status !== "success") {
+    return { error: true, data: null };
+  }
 
-//   return { error: false };
-// }
+  return { error: false, data: responseJson.data };
+}
 
-// async function getContacts() {
-//   const response = await fetchWithToken(`${BASE_URL}/contacts`);
-//   const responseJson = await response.json();
+async function getActiveNotes() {
+  const response = await fetchWithToken(`${BASE_URL}/notes`);
+  const responseJson = await response.json();
 
-//   if (responseJson.status !== 'success') {
-//     alert(responseJson.message);
-//     return { error: true, data: [] };
-//   }
+  if (responseJson.status !== "success") {
+    return { error: true, data: null };
+  }
 
-//   return { error: false, data: responseJson.data };
-// }
+  return { error: false, data: responseJson.data };
+}
 
-// async function deleteContact(id) {
-//   const response = await fetchWithToken(`${BASE_URL}/contacts/${id}`, {
-//     method: 'DELETE',
-//   });
+async function getArchivedNotes() {
+  const response = await fetchWithToken(`${BASE_URL}/notes/archived`);
+  const responseJson = await response.json();
 
-//   const responseJson = await response.json();
+  if (responseJson.status !== "success") {
+    return { error: true, data: null };
+  }
 
-//   if (responseJson.status !== 'success') {
-//     alert(responseJson.message);
-//     return { error: true };
-//   }
+  return { error: false, data: responseJson.data };
+}
 
-//   return { error: false };
-// }
+async function getNote(id) {
+  const response = await fetchWithToken(`${BASE_URL}/notes/${id}`);
+  const responseJson = await response.json();
+
+  if (responseJson.status !== "success") {
+    return { error: true, data: null };
+  }
+
+  return { error: false, data: responseJson.data };
+}
+
+async function archiveNote(id) {
+  const response = await fetchWithToken(`${BASE_URL}/notes/${id}/archive`, {
+    method: "POST",
+  });
+
+  const responseJson = await response.json();
+
+  if (responseJson.status !== "success") {
+    return { error: true, data: null };
+  }
+
+  return { error: false, data: responseJson.data };
+}
+
+async function unarchiveNote(id) {
+  const response = await fetchWithToken(`${BASE_URL}/notes/${id}/unarchive`, {
+    method: "POST",
+  });
+
+  const responseJson = await response.json();
+
+  if (responseJson.status !== "success") {
+    return { error: true, data: null };
+  }
+
+  return { error: false, data: responseJson.data };
+}
+
+async function deleteNote(id) {
+  const response = await fetchWithToken(`${BASE_URL}/notes/${id}`, {
+    method: "DELETE",
+  });
+
+  const responseJson = await response.json();
+
+  if (responseJson.status !== "success") {
+    return { error: true, data: null };
+  }
+
+  return { error: false, data: responseJson.data };
+}
 
 export {
   getAccessToken,
@@ -119,7 +166,11 @@ export {
   login,
   register,
   getUserLogged,
-  //   addContact,
-  //   getContacts,
-  //   deleteContact
+  addNote,
+  getActiveNotes,
+  getArchivedNotes,
+  getNote,
+  archiveNote,
+  unarchiveNote,
+  deleteNote,
 };

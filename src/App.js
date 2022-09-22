@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Navigate,
   Route,
@@ -13,10 +13,13 @@ import DetailPage from "./pages/DetailPage";
 import HomePage from "./pages/HomePage";
 import NotFound from "./pages/NotFound";
 import RegisterPage from "./pages/RegisterPage";
+import LoginPage from "./pages/LoginPage";
+import { getUserLogged, putAccessToken } from "./utils/api";
 
 const App = () => {
   const navigate = useNavigate();
-  const [authedUser] = useState(null);
+  const [authedUser, setAuthedUser] = useState(null);
+  const [initializing, setInitializing] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams("");
   const keyword = searchParams.get("keyword");
   const [searchField, setSearchField] = useState(keyword ? keyword : "");
@@ -24,6 +27,26 @@ const App = () => {
   const [visibleModal, setVisibleModal] = useState(false);
   const activeNotes = notes.filter((note) => !note.archived);
   const archiveNotes = notes.filter((note) => note.archived);
+
+  useEffect(async () => {
+    const { data } = await getUserLogged();
+    setAuthedUser(data);
+    setInitializing(false);
+  }, []);
+
+  // login succes
+  const onLoginSuccess = async ({ accessToken }) => {
+    putAccessToken(accessToken);
+    const { data } = await getUserLogged();
+
+    setAuthedUser(data);
+  };
+
+  // logout
+  const onLogout = () => {
+    setAuthedUser(null);
+    putAccessToken("");
+  };
 
   // Update Keyword
   function updateKeywordUrlSearchParams(newValue) {
@@ -79,6 +102,10 @@ const App = () => {
     setVisibleModal(!visibleModal);
   };
 
+  if (initializing) {
+    return null;
+  }
+
   // not user
   if (authedUser === null) {
     return (
@@ -91,7 +118,10 @@ const App = () => {
         </header>
         <main>
           <Routes>
-            <Route path="/*" element={<p>Halaman Login</p>} />
+            <Route
+              path="/*"
+              element={<LoginPage loginSuccess={onLoginSuccess} />}
+            />
             <Route path="/register" element={<RegisterPage />} />
           </Routes>
         </main>
@@ -105,6 +135,8 @@ const App = () => {
         <Navbar
           setSearchField={setSearchField}
           onSearch={updateKeywordUrlSearchParams}
+          logout={onLogout} 
+          name={authedUser.name}
         />
       </header>
       <main>

@@ -4,8 +4,9 @@ import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../images/logo.png";
 import SearchBar from "../SearchBar/SearchBar";
 import PropTypes from "prop-types";
+import { FiLogOut } from "react-icons/fi";
 
-const Navbar = ({ setSearchField, onSearch }) => {
+const Navbar = ({ setSearchField, onSearch, logout, name }) => {
   const navigate = useNavigate();
   const location = useLocation().pathname;
   const [onTyping, setOnTyping] = useState("");
@@ -41,10 +42,26 @@ const Navbar = ({ setSearchField, onSearch }) => {
   return (
     <>
       <nav>
+        <button onClick={handleNavigateHome} className="logo">
+          <img src={logo} alt="logo" />
+        </button>
+        {location === "/" && (
+          <SearchBar
+            onSearch={onSearch}
+            setSearchField={setSearchField}
+            onTyping={onTyping}
+            setOnTyping={setOnTyping}
+          />
+        )}
+        {location === "/archive" && (
+          <SearchBar
+            onSearch={onSearch}
+            setSearchField={setSearchField}
+            onTyping={onTyping}
+            setOnTyping={setOnTyping}
+          />
+        )}
         <div className="nav-list">
-          <button onClick={handleNavigateHome} className="logo">
-            <img src={logo} alt="logo" />
-          </button>
           <ul className="nav-items">
             <button
               onClick={handleNavigateHome}
@@ -74,24 +91,12 @@ const Navbar = ({ setSearchField, onSearch }) => {
                 Archive
               </NavLink>
             </button>
+            <button onClick={logout}>
+              {name}
+              <FiLogOut />
+            </button>
           </ul>
         </div>
-        {location === "/" && (
-          <SearchBar
-            onSearch={onSearch}
-            setSearchField={setSearchField}
-            onTyping={onTyping}
-            setOnTyping={setOnTyping}
-          />
-        )}
-        {location === "/archive" && (
-          <SearchBar
-            onSearch={onSearch}
-            setSearchField={setSearchField}
-            onTyping={onTyping}
-            setOnTyping={setOnTyping}
-          />
-        )}
       </nav>
     </>
   );
@@ -100,6 +105,8 @@ const Navbar = ({ setSearchField, onSearch }) => {
 Navbar.propTypes = {
   setSearchField: PropTypes.func.isRequired,
   onSearch: PropTypes.func.isRequired,
+  logout: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
 };
 
 export default Navbar;

@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import useInput from "../../hooks/useInput";
 
 const RegisterInput = ({ register }) => {
-  const [name, onNameChange] = useInput("");
-  const [email, onEmailChange] = useInput("");
-  const [password, onPasswordChange] = useInput("");
+  const [name, onNameChangeHandler] = useInput("");
+  const [email, onEmailChangeHandler] = useInput("");
+  const [password, onPasswordChangeHandler] = useInput("");
 
   const onRegisterSubmit = (e) => {
     e.preventDefault();
@@ -18,20 +18,20 @@ const RegisterInput = ({ register }) => {
         type="text"
         placeholder="Nama"
         value={name}
-        onChange={onNameChange}
+        onChange={onNameChangeHandler}
       />
       <input
         type="email"
         placeholder="Email"
         value={email}
-        onChange={onEmailChange}
+        onChange={onEmailChangeHandler}
       />
       <input
         type="password"
         placeholder="Password"
         autoComplete="current-password"
         value={password}
-        onChange={onPasswordChange}
+        onChange={onPasswordChangeHandler}
       />
       <button>Register</button>
     </form>

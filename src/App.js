@@ -19,7 +19,7 @@ import LocaleContext from "./contexts/LocaleContext";
 
 const App = () => {
   const navigate = useNavigate();
-  const [locale, setLocale] = useState("id");
+  const [locale, setLocale] = useState(localStorage.getItem("locale") || "id");
   const [authedUser, setAuthedUser] = useState(null);
   const [initializing, setInitializing] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams("");
@@ -42,7 +42,9 @@ const App = () => {
   // locale toggle
   const toggleLocale = () => {
     setLocale((prevLocale) => {
-      return prevLocale === "id" ? "en" : "id";
+      const newLocale = prevLocale === "id" ? "en" : "id";
+      localStorage.setItem("locale", newLocale);
+      return newLocale;
     });
   };
 

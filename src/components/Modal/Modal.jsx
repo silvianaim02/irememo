@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Modal.css";
 import PropTypes from "prop-types";
+import { addNote } from "../../utils/api";
 
-const Modal = ({ visibleModal, onModalHandler, addNotes }) => {
+const Modal = ({ visibleModal, onModalHandler }) => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [requiredErr, setRequiredErr] = useState(false);
@@ -18,12 +19,12 @@ const Modal = ({ visibleModal, onModalHandler, addNotes }) => {
     onModalHandler();
   };
 
-  const onNoteSubmitHandler = (e) => {
+  const onAddNotes = async (e) => {
     e.preventDefault();
     if (body.length < 1) {
       setRequiredErr(true);
     } else {
-      addNotes({ title, body });
+      addNote({ title, body });
       resetInputState();
       navigate("/");
     }
@@ -36,7 +37,7 @@ const Modal = ({ visibleModal, onModalHandler, addNotes }) => {
   return (
     <>
       <div className="modal">
-        <form onSubmit={onNoteSubmitHandler} className="modal-content">
+        <form onSubmit={onAddNotes} className="modal-content">
           <div className="modal-body">
             <h4 className="modal-title">Create a Note</h4>
             <div className="remaining-text">
@@ -87,7 +88,6 @@ const Modal = ({ visibleModal, onModalHandler, addNotes }) => {
 
 Modal.propTypes = {
   visibleModal: PropTypes.bool.isRequired,
-  addNotes: PropTypes.func.isRequired,
   onModalHandler: PropTypes.func.isRequired,
 };
 

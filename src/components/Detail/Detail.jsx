@@ -4,14 +4,13 @@ import CardItemButton from "../card/cardItem/CardItemButton";
 import "./Detail.css";
 import PropTypes from "prop-types";
 
-const Detail = ({ detailNote, onDelete, onArchive }) => {
+const Detail = ({ detailNote, onArchive }) => {
   return (
     <>
       <div className="content-wrapper">
         <div className="delete-archive-button">
           <CardItemButton
             id={detailNote.id}
-            onDelete={onDelete}
             onArchive={onArchive}
             archived={detailNote.archived}
           />
@@ -30,7 +29,6 @@ const Detail = ({ detailNote, onDelete, onArchive }) => {
 
 Detail.propTypes = {
   detailNote: PropTypes.object.isRequired,
-  onDelete: PropTypes.func.isRequired,
   onArchive: PropTypes.func.isRequired,
 };
 

@@ -1,15 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LoginInput from "../components/LoginInput/LoginInput";
 import { login } from "../utils/api";
 
 const LoginPage = ({ loginSuccess }) => {
+  const navigate = useNavigate();
+  
   async function onLogin({ email, password }) {
     const { error, data } = await login({ email, password });
-
     if (!error) {
       loginSuccess(data);
+      navigate("");
     }
   }
 

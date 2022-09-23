@@ -10,6 +10,7 @@ const LoginInput = ({ login }) => {
     e.preventDefault();
     login({ email, password });
   };
+  
   return (
     <form onSubmit={onLoginSubmit} className="login-input">
       <input

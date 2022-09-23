@@ -4,23 +4,28 @@
 
 .input-bar {
   background-color: #ffffff;
-  height: 33px;
+  height: 40px;
   width: 294px;
   border-radius: 50px;
   border: none;
   box-sizing: border-box;
   text-indent: 35px;
   color: #75c3ff;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 }
 
 .input-bar::-webkit-input-placeholder {
   color: #75c3ff;
 }
 
+.input-bar:focus, input:focus{
+  outline: none;
+}
+
 .search-bar .search-icon {
   position: absolute;
   top: 0;
-  height: 33px;
+  height: 110%;
   left: 15px;
   color: #75c3ff;
   display: flex;

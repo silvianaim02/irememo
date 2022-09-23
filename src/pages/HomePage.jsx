@@ -1,17 +1,17 @@
 import React, { useEffect } from "react";
 import MainContent from "../components/MainContent/MainContent";
 import PropTypes from "prop-types";
-import { deleteNote, getActiveNotes } from "../utils/api";
+import { getActiveNotes } from "../utils/api";
 
 const HomePage = ({
   filteredActive,
   activeNotes,
   setActiveNotes,
-  // onDelete,
+  setSearchField, 
+  onSearch,
   onArchive,
   visibleModal,
   setVisibleModal,
-  addNotes,
   onModalHandler,
 }) => {
   // const [activeNotes, setActiveNotes] = useState([]);
@@ -21,30 +21,22 @@ const HomePage = ({
       setActiveNotes(data);
     };
     fetchData();
-  }, []);
-
-  // delet api
-  const onDeleteHandler = async (id) => {
-    await deleteNote(id);
-    const { data } = await getActiveNotes();
-    setActiveNotes(data);
-  };
+  }, [activeNotes]);
 
   // if (activeNotes.length === 0) {
   //   return null;
   // }
 
-  console.log(activeNotes);
   return (
     <MainContent
       titleTop="Active Notes"
       filteredActive={filteredActive}
       activeNotes={activeNotes}
-      onDelete={onDeleteHandler}
       onArchive={onArchive}
       visibleModal={visibleModal}
       setVisibleModal={setVisibleModal}
-      addNotes={addNotes}
+      setSearchField={setSearchField}
+      onSearch={onSearch}
       onModalHandler={onModalHandler}
     />
   );
@@ -54,11 +46,11 @@ HomePage.propTypes = {
   filteredActive: PropTypes.arrayOf(PropTypes.object).isRequired,
   activeNotes: PropTypes.arrayOf(PropTypes.object).isRequired,
   setActiveNotes: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
   onArchive: PropTypes.func.isRequired,
   visibleModal: PropTypes.bool.isRequired,
   setVisibleModal: PropTypes.func.isRequired,
-  addNotes: PropTypes.func.isRequired,
+  setSearchField: PropTypes.func.isRequired,
+  onSearch: PropTypes.func.isRequired,
   onModalHandler: PropTypes.func.isRequired,
 };
 

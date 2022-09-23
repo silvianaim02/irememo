@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import useInput from "../../hooks/useInput";
 
 const RegisterInput = ({ register }) => {
+  
   const [name, onNameChangeHandler] = useInput("");
   const [email, onEmailChangeHandler] = useInput("");
   const [password, onPasswordChangeHandler] = useInput("");

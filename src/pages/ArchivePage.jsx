@@ -7,37 +7,35 @@ const ArchivePage = ({
   filteredArchive,
   archiveNotes,
   setArchiveNotes,
-  onDelete,
+  setSearchField, 
+  onSearch,
   onArchive,
   visibleModal,
   setVisibleModal,
-  addNotes,
   onModalHandler,
 }) => {
-  // const [archiveNotes, setArchiveNotes] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       const { data } = await getArchivedNotes();
       setArchiveNotes(data);
     };
     fetchData();
-  }, []);
+  }, [archiveNotes]);
 
   // if (archiveNotes.length === 0) {
   //   return null;
   // }
 
-  console.log(archiveNotes);
   return (
     <MainContent
       titleTop="Archive Notes"
       filteredArchive={filteredArchive}
       archiveNotes={archiveNotes}
-      onDelete={onDelete}
       onArchive={onArchive}
       visibleModal={visibleModal}
       setVisibleModal={setVisibleModal}
-      addNotes={addNotes}
+      setSearchField={setSearchField}
+      onSearch={onSearch}
       onModalHandler={onModalHandler}
     />
   );
@@ -47,11 +45,11 @@ ArchivePage.propTypes = {
   filteredArchive: PropTypes.arrayOf(PropTypes.object).isRequired,
   archiveNotes: PropTypes.arrayOf(PropTypes.object).isRequired,
   setArchiveNotes: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
   onArchive: PropTypes.func.isRequired,
   visibleModal: PropTypes.bool.isRequired,
   setVisibleModal: PropTypes.func.isRequired,
-  addNotes: PropTypes.func.isRequired,
+  setSearchField: PropTypes.func.isRequired,
+  onSearch: PropTypes.func.isRequired,
   onModalHandler: PropTypes.func.isRequired,
 };
 

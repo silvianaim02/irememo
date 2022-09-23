@@ -14,10 +14,7 @@ import HomePage from "./pages/HomePage";
 import NotFound from "./pages/NotFound";
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
-import {
-  getUserLogged,
-  putAccessToken,
-} from "./utils/api";
+import { getUserLogged, putAccessToken } from "./utils/api";
 
 const App = () => {
   const navigate = useNavigate();
@@ -28,8 +25,6 @@ const App = () => {
   const [searchField, setSearchField] = useState(keyword ? keyword : "");
   const [notes, setNotes] = useState(getInitialData());
   const [visibleModal, setVisibleModal] = useState(false);
-  // const activeNotes = notes.filter((note) => !note.archived);
-  // const archiveNotes = notes.filter((note) => note.archived);
   const [activeNotes, setActiveNotes] = useState([]);
   const [archiveNotes, setArchiveNotes] = useState([]);
 
@@ -41,24 +36,6 @@ const App = () => {
     };
     fetchData();
   }, []);
-
-  // // fetch active notes
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const { data } = await getArchivedNotes();
-  //     setArchiveNotes(data);
-  //   };
-  //   fetchData();
-  // }, []);
-
-  // // fectct active notes
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const { data } = await getActiveNotes();
-  //     setActiveNotes(data);
-  //   };
-  //   fetchData();
-  // }, []);
 
   // login succes
   const onLoginSuccess = async ({ accessToken }) => {
@@ -87,28 +64,6 @@ const App = () => {
   const filteredArchive = archiveNotes.filter((note) => {
     return note.title.toLowerCase().includes(searchField.toLowerCase());
   });
-
-  // Create Note Handler
-  const onAddNotesHandler = ({ title, body }) => {
-    const newNotes = [
-      ...notes,
-      {
-        id: `notes-${+new Date()}`,
-        title: title || "(untitled)",
-        body,
-        createdAt: new Date().toISOString(),
-        archived: false,
-      },
-    ];
-    setNotes(newNotes);
-  };
-
-  // Delete Note Handler
-  const onDeleteHandler = (id) => {
-    const newNotes = notes.filter((note) => note.id !== id);
-    setNotes(newNotes);
-    navigate("/");
-  };
 
   // Archive Note Handler
   const onArchiveNotesHandler = (id) => {
@@ -139,6 +94,7 @@ const App = () => {
           <Navbar
             setSearchField={setSearchField}
             onSearch={updateKeywordUrlSearchParams}
+            authedUser={authedUser}
           />
         </header>
         <main>
@@ -162,6 +118,7 @@ const App = () => {
           onSearch={updateKeywordUrlSearchParams}
           logout={onLogout}
           name={authedUser.name}
+          authedUser={authedUser}
         />
       </header>
       <main>
@@ -177,11 +134,10 @@ const App = () => {
                 setActiveNotes={setActiveNotes}
                 searchField={searchField}
                 setSearchField={setSearchField}
-                onDelete={onDeleteHandler}
+                onSearch={updateKeywordUrlSearchParams}
                 onArchive={onArchiveNotesHandler}
                 visibleModal={visibleModal}
                 setVisibleModal={setVisibleModal}
-                addNotes={onAddNotesHandler}
                 onModalHandler={onModalHandler}
               />
             }
@@ -197,11 +153,10 @@ const App = () => {
                 setArchiveNotes={setArchiveNotes}
                 searchField={searchField}
                 setSearchField={setSearchField}
-                onDelete={onDeleteHandler}
+                onSearch={updateKeywordUrlSearchParams}
                 onArchive={onArchiveNotesHandler}
                 visibleModal={visibleModal}
                 setVisibleModal={setVisibleModal}
-                addNotes={onAddNotesHandler}
                 onModalHandler={onModalHandler}
               />
             }
@@ -213,11 +168,9 @@ const App = () => {
               element={
                 <DetailPage
                   notes={notes}
-                  onDelete={onDeleteHandler}
                   onArchive={onArchiveNotesHandler}
                   setActiveNotes={setActiveNotes}
                   setArchiveNotes={setArchiveNotes}
-
                 />
               }
             />

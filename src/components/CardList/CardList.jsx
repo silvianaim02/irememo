@@ -5,7 +5,7 @@ import emptyNoteImg from "../../images/empty-note.svg";
 import PropTypes from "prop-types";
 
 const CardList = ({ notes }) => {
-  console.log(notes);
+  
   if (notes.length === 0) {
     return (
       <div className="card-list">

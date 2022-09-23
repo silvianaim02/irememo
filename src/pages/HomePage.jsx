@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import MainContent from "../components/MainContent/MainContent";
 import PropTypes from "prop-types";
 import { getActiveNotes } from "../utils/api";
+import LocaleContext from "../contexts/LocaleContext";
 
 const HomePage = ({
   filteredActive,
@@ -14,7 +15,7 @@ const HomePage = ({
   setVisibleModal,
   onModalHandler,
 }) => {
-  // const [activeNotes, setActiveNotes] = useState([]);
+  const { locale } = useContext(LocaleContext);
   useEffect(() => {
     const fetchData = async () => {
       const { data } = await getActiveNotes();
@@ -29,7 +30,7 @@ const HomePage = ({
 
   return (
     <MainContent
-      titleTop="Active Notes"
+      titleTop={locale === "id" ? "Catatan aktif" : "Active Notes"}
       filteredActive={filteredActive}
       activeNotes={activeNotes}
       onArchive={onArchive}

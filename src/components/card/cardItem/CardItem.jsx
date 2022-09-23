@@ -1,16 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./CardItem.css";
 import { Link } from "react-router-dom";
 import ReadMoreButton from "../../button/ReadMoreButton";
-import { showFormattedDate } from "../../../utils";
+import { enFormattedDate, idFormattedDate } from "../../../utils";
 import PropTypes from "prop-types";
+import LocaleContext from "../../../contexts/LocaleContext";
 
 const CardItem = ({ id, title, body, createdAt }) => {
+  const { locale } = useContext(LocaleContext);
   return (
     <>
       <div className="card-item-wrapper">
         <div className="card-item-header">
-          <p className="dates-item">{showFormattedDate(createdAt)}</p>
+          <p className="dates-item">
+            {locale === "id"
+              ? idFormattedDate(createdAt)
+              : enFormattedDate(createdAt)}
+          </p>
           <Link to={`/notes/${id}`} className="dec-none">
             <h4 className="title-item">{title}</h4>
           </Link>

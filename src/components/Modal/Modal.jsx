@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Modal.css";
 import PropTypes from "prop-types";
 import { addNote } from "../../utils/api";
+import LocaleContext from "../../contexts/LocaleContext";
+import { addContent } from "../../utils/content";
 
 const Modal = ({ visibleModal, onModalHandler }) => {
+  const { locale } = useContext(LocaleContext);
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [requiredErr, setRequiredErr] = useState(false);
@@ -39,17 +42,21 @@ const Modal = ({ visibleModal, onModalHandler }) => {
       <div className="modal">
         <form onSubmit={onAddNotes} className="modal-content">
           <div className="modal-body">
-            <h4 className="modal-title">Create a Note</h4>
+            <h4 className="modal-title">{addContent[locale].header}</h4>
             <div className="remaining-text">
               {currentChar === 0 ? (
-                <p className="red-text">Remaining character : {currentChar}</p>
+                <p className="red-text">
+                  {addContent[locale].remainingText} : {currentChar}
+                </p>
               ) : (
-                <p>Remaining character : {currentChar}</p>
+                <p>
+                  {addContent[locale].remainingText} : {currentChar}
+                </p>
               )}
             </div>
             <input
               type="text"
-              placeholder="Title"
+              placeholder={addContent[locale].titlePlaceholder}
               value={title}
               onChange={(e) => {
                 setTitle(e.target.value.slice(0, charLimit));
@@ -59,7 +66,7 @@ const Modal = ({ visibleModal, onModalHandler }) => {
               name="content"
               cols="30"
               rows="10"
-              placeholder="Write your note in here..."
+              placeholder={addContent[locale].bodyPlaceholder}
               value={body}
               onChange={(e) => {
                 setBody(e.target.value);
@@ -69,15 +76,15 @@ const Modal = ({ visibleModal, onModalHandler }) => {
               }}
             ></textarea>
             {requiredErr ? (
-              <p className="red-text">note cannot be empty</p>
+              <p className="red-text">{addContent[locale].redText}</p>
             ) : null}
           </div>
           <div className="modal-footer">
             <button onClick={resetInputState} className="button-cancel">
-              Cancel
+              {locale === "id" ? "Batal" : "Cancel"}
             </button>
             <button type="submit" className="button-create">
-              Create
+              {locale === "id" ? "Buat catatan" : "Create"}
             </button>
           </div>
         </form>

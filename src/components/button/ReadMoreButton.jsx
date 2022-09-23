@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
+import LocaleContext from "../../contexts/LocaleContext";
 import "./ReadMoreButton.css";
 
 const ReadMoreButton = () => {
+  const { locale } = useContext(LocaleContext);
   return (
     <>
       <button className="read-more-button">
-        <p>Read More</p>
+        <p>{locale === "id" ? "Lihat selengkapnya" : "Read more"}</p>
       </button>
     </>
   );

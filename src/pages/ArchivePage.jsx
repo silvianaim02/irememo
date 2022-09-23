@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import MainContent from "../components/MainContent/MainContent";
 import PropTypes from "prop-types";
 import { getArchivedNotes } from "../utils/api";
+import LocaleContext from "../contexts/LocaleContext";
 
 const ArchivePage = ({
   filteredArchive,
@@ -14,6 +15,8 @@ const ArchivePage = ({
   setVisibleModal,
   onModalHandler,
 }) => {
+  const { locale } = useContext(LocaleContext);
+  
   useEffect(() => {
     const fetchData = async () => {
       const { data } = await getArchivedNotes();
@@ -28,7 +31,7 @@ const ArchivePage = ({
 
   return (
     <MainContent
-      titleTop="Archive Notes"
+      titleTop={locale === "id" ? "Catatan arsip" : "Archive Notes"}
       filteredArchive={filteredArchive}
       archiveNotes={archiveNotes}
       onArchive={onArchive}

@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./Navbar.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import logo from "../../images/logo.png";
 import PropTypes from "prop-types";
 import { FiLogOut } from "react-icons/fi";
+import LocaleContext from "../../contexts/LocaleContext";
 
 const Navbar = ({ setSearchField, logout, name, authedUser }) => {
   const navigate = useNavigate();
+  const { locale, toggleLocale } = useContext(LocaleContext);
 
   const handleNavigateHome = (e) => {
     e.preventDefault();
@@ -37,9 +39,14 @@ const Navbar = ({ setSearchField, logout, name, authedUser }) => {
   return (
     <>
       <nav>
-        <button onClick={handleNavigateHome} className="logo">
-          <img src={logo} alt="logo" />
-        </button>
+        <div>
+          <button onClick={handleNavigateHome} className="logo">
+            <img src={logo} alt="logo" />
+          </button>
+          <button onClick={toggleLocale}>
+            {locale === "id" ? "English" : "Indonesia"}
+          </button>
+        </div>
         <div className="nav-list">
           {authedUser !== null ? (
             <ul className="nav-items">
@@ -54,7 +61,7 @@ const Navbar = ({ setSearchField, logout, name, authedUser }) => {
                     isActive ? activeStyle : defaultStyle
                   }
                 >
-                  Home
+                  {locale === "id" ? "Beranda" : "Home"}
                 </NavLink>
               </button>
               <button
@@ -68,7 +75,7 @@ const Navbar = ({ setSearchField, logout, name, authedUser }) => {
                     isActive ? activeStyle : defaultStyle
                   }
                 >
-                  Archive
+                  {locale === "id" ? "Arsip" : "Archive"}
                 </NavLink>
               </button>
               <button onClick={logout}>

@@ -1,10 +1,12 @@
-import React from "react";
-import { showFormattedDate } from "../../utils";
+import React, { useContext } from "react";
+import { enFormattedDate, idFormattedDate } from "../../utils";
 import CardItemButton from "../card/cardItem/CardItemButton";
 import "./Detail.css";
 import PropTypes from "prop-types";
+import LocaleContext from "../../contexts/LocaleContext";
 
 const Detail = ({ detailNote, onArchive }) => {
+  const { locale } = useContext(LocaleContext);
   return (
     <>
       <div className="content-wrapper">
@@ -18,7 +20,9 @@ const Detail = ({ detailNote, onArchive }) => {
         <div className="detail-text-wrapper">
           <h1 className="line-gap">{detailNote.title}</h1>
           <p className="line-gap dates-text">
-            {showFormattedDate(detailNote.createdAt)}
+            {locale === "id"
+              ? idFormattedDate(detailNote.createdAt)
+              : enFormattedDate(detailNote.createdAt)}
           </p>
           <p className="line-gap">{detailNote.body}</p>
         </div>

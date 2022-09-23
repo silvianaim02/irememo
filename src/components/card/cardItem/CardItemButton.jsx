@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./CardItemButton.css";
 import { AiOutlineDelete } from "react-icons/ai";
 import { FaRegFileArchive } from "react-icons/fa";
 import PropTypes from "prop-types";
 import { archiveNote, deleteNote, unarchiveNote } from "../../../utils/api";
 import { useNavigate } from "react-router-dom";
+import LocaleContext from "../../../contexts/LocaleContext";
 
 const CardItemButton = ({ id, archived }) => {
+  const { locale } = useContext(LocaleContext);
   const navigate = useNavigate();
 
   const onDeleteHandler = async (e) => {
@@ -37,13 +39,17 @@ const CardItemButton = ({ id, archived }) => {
           <i>
             <AiOutlineDelete />{" "}
           </i>
-          <p>Delete</p>
+          <p>{locale === "id" ? "Hapus" : "Delete"}</p>
         </button>
         <button className="archive-button" type="submit" onClick={onArchive}>
           <i>
             <FaRegFileArchive />{" "}
           </i>
-          {archived ? <p>Unarchived</p> : <p>Archive</p>}
+          {archived ? (
+            <p>{locale === "id" ? "Batal archive" : "Unarchive"}</p>
+          ) : (
+            <p>{locale === "id" ? "Arsip" : "Archive"}</p>
+          )}
         </button>
       </div>
     </>

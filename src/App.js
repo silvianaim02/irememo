@@ -14,7 +14,10 @@ import HomePage from "./pages/HomePage";
 import NotFound from "./pages/NotFound";
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
-import { getUserLogged, putAccessToken } from "./utils/api";
+import {
+  getUserLogged,
+  putAccessToken,
+} from "./utils/api";
 
 const App = () => {
   const navigate = useNavigate();
@@ -25,20 +28,42 @@ const App = () => {
   const [searchField, setSearchField] = useState(keyword ? keyword : "");
   const [notes, setNotes] = useState(getInitialData());
   const [visibleModal, setVisibleModal] = useState(false);
-  const activeNotes = notes.filter((note) => !note.archived);
-  const archiveNotes = notes.filter((note) => note.archived);
+  // const activeNotes = notes.filter((note) => !note.archived);
+  // const archiveNotes = notes.filter((note) => note.archived);
+  const [activeNotes, setActiveNotes] = useState([]);
+  const [archiveNotes, setArchiveNotes] = useState([]);
 
-  useEffect(async () => {
-    const { data } = await getUserLogged();
-    setAuthedUser(data);
-    setInitializing(false);
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data } = await getUserLogged();
+      setAuthedUser(data);
+      setInitializing(false);
+    };
+    fetchData();
   }, []);
+
+  // // fetch active notes
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const { data } = await getArchivedNotes();
+  //     setArchiveNotes(data);
+  //   };
+  //   fetchData();
+  // }, []);
+
+  // // fectct active notes
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const { data } = await getActiveNotes();
+  //     setActiveNotes(data);
+  //   };
+  //   fetchData();
+  // }, []);
 
   // login succes
   const onLoginSuccess = async ({ accessToken }) => {
     putAccessToken(accessToken);
     const { data } = await getUserLogged();
-
     setAuthedUser(data);
   };
 
@@ -135,7 +160,7 @@ const App = () => {
         <Navbar
           setSearchField={setSearchField}
           onSearch={updateKeywordUrlSearchParams}
-          logout={onLogout} 
+          logout={onLogout}
           name={authedUser.name}
         />
       </header>
@@ -149,6 +174,7 @@ const App = () => {
                 setNotes={setNotes}
                 filteredActive={filteredActive}
                 activeNotes={activeNotes}
+                setActiveNotes={setActiveNotes}
                 searchField={searchField}
                 setSearchField={setSearchField}
                 onDelete={onDeleteHandler}
@@ -167,7 +193,8 @@ const App = () => {
                 notes={notes}
                 setNotes={setNotes}
                 filteredArchive={filteredArchive}
-                archiveNotes={activeNotes}
+                archiveNotes={archiveNotes}
+                setArchiveNotes={setArchiveNotes}
                 searchField={searchField}
                 setSearchField={setSearchField}
                 onDelete={onDeleteHandler}
@@ -188,6 +215,9 @@ const App = () => {
                   notes={notes}
                   onDelete={onDeleteHandler}
                   onArchive={onArchiveNotesHandler}
+                  setActiveNotes={setActiveNotes}
+                  setArchiveNotes={setArchiveNotes}
+
                 />
               }
             />

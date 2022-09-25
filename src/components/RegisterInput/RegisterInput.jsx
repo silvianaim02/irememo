@@ -25,10 +25,6 @@ const RegisterInput = ({ register }) => {
       });
     } else {
       register({ name, email, password });
-      toast.success("Akun berhasil didaftarkan, silahkan login", {
-        theme: "colored",
-        icon: "🚀",
-      });
     }
   };
 

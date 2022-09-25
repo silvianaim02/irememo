@@ -6,6 +6,7 @@ import LocaleContext from "../contexts/LocaleContext";
 import { register } from "../utils/api";
 import { registerContent } from "../utils/content";
 import ThemeContext from "../contexts/ThemeContext";
+import { toast } from "react-toastify";
 
 const RegisterPage = () => {
   const { locale } = useContext(LocaleContext);
@@ -15,6 +16,10 @@ const RegisterPage = () => {
   async function onRegisterHandler(user) {
     const { error } = await register(user);
     if (!error) {
+      toast.success("Akun berhasil didaftarkan, silahkan login", {
+        theme: "colored",
+        icon: "🚀",
+      });
       navigate("/");
     }
   }

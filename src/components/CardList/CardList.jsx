@@ -19,7 +19,7 @@ const CardList = ({ notes }) => {
 
   return (
     <>
-      <div className="card-list row">
+      <div className="card-list">
         {notes.map((note) => (
           <CardItem
             key={note.id}

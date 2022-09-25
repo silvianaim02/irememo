@@ -45,3 +45,21 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+@media screen and (max-width: 1024px) {
+  .card-item-wrapper {
+    width: 30%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .card-item-wrapper {
+    width: 40%;
+  }
+}
+
+@media screen and (max-width: 568px) {
+  .card-item-wrapper {
+    width: 100%;
+  }
+}

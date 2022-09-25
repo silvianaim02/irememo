@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./SearchBar.css";
-import { BiSearchAlt2 } from "react-icons/bi";
 import { IoIosCloseCircle } from "react-icons/io";
 import PropTypes from "prop-types";
+import LocaleContext from "../../contexts/LocaleContext";
+import ThemeContext from "../../contexts/ThemeContext";
 
 const SearchBar = ({ setSearchField, onSearch, onTyping, setOnTyping }) => {
+  const { locale } = useContext(LocaleContext);
+  const { theme } = useContext(ThemeContext);
+
   const onChange = (e) => {
     setOnTyping(e.target.value);
     onSearch(e.target.value);
@@ -19,27 +23,24 @@ const SearchBar = ({ setSearchField, onSearch, onTyping, setOnTyping }) => {
   };
 
   return (
-    <>
-      <div className="search-bar">
-        <input
-          onChange={onChange}
-          className="input-bar"
-          value={onTyping}
-          type="text"
-          placeholder="Search..."
-        />
-        <div className="search-icon">
-          <i>
-            <BiSearchAlt2 />
-          </i>
+    <div className="search-bar">
+      <input
+        onChange={onChange}
+        className={
+          theme === "dark"
+            ? "low-dark-theme input-bar "
+            : "input-bar light-theme"
+        }
+        value={onTyping}
+        type="text"
+        placeholder={locale === "id" ? "Cari..." : "Search..."}
+      />
+      {onTyping === "" ? null : (
+        <div onClick={resetSearchState} className="reset-button">
+          <IoIosCloseCircle />
         </div>
-        {onTyping === "" ? null : (
-          <div onClick={resetSearchState} className="reset-button">
-            <IoIosCloseCircle />
-          </div>
-        )}
-      </div>
-    </>
+      )}
+    </div>
   );
 };
 

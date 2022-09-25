@@ -1,9 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Modal.css";
 import PropTypes from "prop-types";
+import { addNote, getActiveNotes } from "../../utils/api";
+import LocaleContext from "../../contexts/LocaleContext";
+import { addContent } from "../../utils/content";
+import ThemeContext from "../../contexts/ThemeContext";
+import { toast } from "react-toastify";
 
-const Modal = ({ visibleModal, onModalHandler, addNotes }) => {
+const Modal = ({ visibleModal, onModalHandler, setActiveNotes }) => {
+  const { locale } = useContext(LocaleContext);
+  const { theme } = useContext(ThemeContext);
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [requiredErr, setRequiredErr] = useState(false);
@@ -18,12 +25,20 @@ const Modal = ({ visibleModal, onModalHandler, addNotes }) => {
     onModalHandler();
   };
 
-  const onNoteSubmitHandler = (e) => {
+  const onAddNotes = async (e) => {
     e.preventDefault();
     if (body.length < 1) {
       setRequiredErr(true);
     } else {
-      addNotes({ title, body });
+      await addNote({ title, body });
+      toast.success("catatan berhasil ditambahkan!", {
+        theme: "colored",
+        icon: "🚀",
+      });
+      if (setActiveNotes) {
+        const { data } = await getActiveNotes();
+        setActiveNotes(data);
+      }
       resetInputState();
       navigate("/");
     }
@@ -36,19 +51,30 @@ const Modal = ({ visibleModal, onModalHandler, addNotes }) => {
   return (
     <>
       <div className="modal">
-        <form onSubmit={onNoteSubmitHandler} className="modal-content">
+        <form
+          onSubmit={onAddNotes}
+          className={
+            theme === "dark"
+              ? "modal-content mid-dark-theme"
+              : "modal-content light-theme"
+          }
+        >
           <div className="modal-body">
-            <h4 className="modal-title">Create a Note</h4>
+            <h4 className="modal-title">{addContent[locale].header}</h4>
             <div className="remaining-text">
               {currentChar === 0 ? (
-                <p className="red-text">Remaining character : {currentChar}</p>
+                <p className="red-text">
+                  {addContent[locale].remainingText} : {currentChar}
+                </p>
               ) : (
-                <p>Remaining character : {currentChar}</p>
+                <p>
+                  {addContent[locale].remainingText} : {currentChar}
+                </p>
               )}
             </div>
             <input
               type="text"
-              placeholder="Title"
+              placeholder={addContent[locale].titlePlaceholder}
               value={title}
               onChange={(e) => {
                 setTitle(e.target.value.slice(0, charLimit));
@@ -58,7 +84,7 @@ const Modal = ({ visibleModal, onModalHandler, addNotes }) => {
               name="content"
               cols="30"
               rows="10"
-              placeholder="Write your note in here..."
+              placeholder={addContent[locale].bodyPlaceholder}
               value={body}
               onChange={(e) => {
                 setBody(e.target.value);
@@ -68,15 +94,21 @@ const Modal = ({ visibleModal, onModalHandler, addNotes }) => {
               }}
             ></textarea>
             {requiredErr ? (
-              <p className="red-text">note cannot be empty</p>
+              <p className="red-text">{addContent[locale].redText}</p>
             ) : null}
           </div>
-          <div className="modal-footer">
+          <div
+            className={
+              theme === "dark"
+                ? "modal-footer low-dark-theme"
+                : "modal-footer blue-bg-theme"
+            }
+          >
             <button onClick={resetInputState} className="button-cancel">
-              Cancel
+              {locale === "id" ? "Batal" : "Cancel"}
             </button>
             <button type="submit" className="button-create">
-              Create
+              {locale === "id" ? "Buat catatan" : "Create"}
             </button>
           </div>
         </form>
@@ -86,8 +118,8 @@ const Modal = ({ visibleModal, onModalHandler, addNotes }) => {
 };
 
 Modal.propTypes = {
+  setActiveNotes: PropTypes.func,
   visibleModal: PropTypes.bool.isRequired,
-  addNotes: PropTypes.func.isRequired,
   onModalHandler: PropTypes.func.isRequired,
 };
 

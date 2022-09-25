@@ -1,11 +1,13 @@
 .card-item-wrapper {
   padding: 16px;
-  background-color: #ffffff;
   height: fit-content;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
   width: 22%;
   word-wrap: break-word;
+  border-radius: 10px 10px 10px 10px;
+  -moz-border-radius: 10px 10px 10px 10px;
+  -webkit-border-radius: 10px 10px 10px 10px;
+  box-sizing: border-box;
 }
 
 .card-item-wrapper:hover {
@@ -13,14 +15,12 @@
 }
 
 .dates-item {
-  color: #75c3ff;
   font-weight: 100;
   font-size: x-small;
   padding-bottom: 10px;
 }
 
 .title-item {
-  color: #75c3ff;
   font-weight: bold;
   font-size: medium;
   padding-bottom: 10px;
@@ -36,7 +36,6 @@
 }
 
 .card-item-body p {
-  color: #393939;
   font-weight: normal;
   font-size: medium;
   letter-spacing: 1px;
@@ -44,4 +43,22 @@
   -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+@media screen and (max-width: 1024px) {
+  .card-item-wrapper {
+    width: 30%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .card-item-wrapper {
+    width: 40%;
+  }
+}
+
+@media screen and (max-width: 568px) {
+  .card-item-wrapper {
+    width: 100%;
+  }
 }

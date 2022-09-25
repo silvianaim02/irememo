@@ -1,45 +1,44 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Detail from "../components/Detail/Detail";
 import NotFound from "./NotFound";
-import PropTypes from "prop-types";
+import { getNote } from "../utils/api";
+import { useState } from "react";
+import LoadingSpinner from "../components/Spinner/LoadingSpinner";
 
-function getNotes(noteId, notes) {
-  if (!noteId) {
-    return null;
-  }
-  const filteredNotesById = notes.filter((note) => note.id === noteId);
-  if (!filteredNotesById.length) {
-    return null;
-  }
-  return filteredNotesById[0];
-}
-
-const DetailPage = ({ notes, onDelete, onArchive }) => {
+const DetailPage = () => {
   let { noteId } = useParams();
-  const detailNote = getNotes(noteId, notes);
+  const [loading, setLoading] = useState(false);
+  const [detailNote, setDetailNote] = useState({});
+  const [nothingId, setNothingId] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      const response = await getNote(noteId);
+      if (response.error) {
+        setNothingId(true);
+      } else {
+        setDetailNote(response.data);
+      }
+      setTimeout(() => {
+        setLoading(false);
+      }, 300);
+    };
+    fetchData();
+  }, [noteId]);
 
   return (
     <>
-      <div>
-        {detailNote === null ? (
-          <NotFound />
-        ) : (
-          <Detail
-            detailNote={detailNote}
-            onDelete={onDelete}
-            onArchive={onArchive}
-          />
-        )}
-      </div>
+      {loading ? (
+        <LoadingSpinner />
+      ) : nothingId ? (
+        <NotFound />
+      ) : (
+        <Detail detailNote={detailNote} />
+      )}
     </>
   );
-};
-
-DetailPage.propTypes = {
-  notes: PropTypes.arrayOf(PropTypes.object).isRequired,
-  onDelete: PropTypes.func.isRequired,
-  onArchive: PropTypes.func.isRequired,
 };
 
 export default DetailPage;

@@ -43,7 +43,7 @@ const getInitialData = () => [
   },
 ];
 
-const showFormattedDate = (date) => {
+const idFormattedDate = (date) => {
   const options = {
     weekday: "long",
     year: "numeric",
@@ -53,4 +53,14 @@ const showFormattedDate = (date) => {
   return new Date(date).toLocaleDateString("id-ID", options);
 };
 
-export { getInitialData, showFormattedDate };
+const enFormattedDate = (date) => {
+  const options = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+  return new Date(date).toLocaleDateString("en-US", options);
+};
+
+export { getInitialData, idFormattedDate, enFormattedDate };

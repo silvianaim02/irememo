@@ -1,44 +1,62 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import MainContent from "../components/MainContent/MainContent";
 import PropTypes from "prop-types";
+import { getActiveNotes } from "../utils/api";
+import LocaleContext from "../contexts/LocaleContext";
+import { useState } from "react";
 
 const HomePage = ({
   filteredActive,
   activeNotes,
-  onDelete,
-  onArchive,
+  setActiveNotes,
+  setSearchField,
+  onSearch,
   visibleModal,
   setVisibleModal,
-  addNotes,
   onModalHandler,
 }) => {
+  const { locale } = useContext(LocaleContext);
+  const [loading, setLoading] = useState(false);
+  const [initializing, setInitializing] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      const { data } = await getActiveNotes();
+      setActiveNotes(data);
+      setInitializing(false);
+      setTimeout(() => {
+        setLoading(false);
+      }, 350);
+    };
+    fetchData();
+  }, []);
+
   return (
-    <>
-      <div>
-        <MainContent
-          titleTop="Active Notes"
-          filteredActive={filteredActive}
-          activeNotes={activeNotes}
-          onDelete={onDelete}
-          onArchive={onArchive}
-          visibleModal={visibleModal}
-          setVisibleModal={setVisibleModal}
-          addNotes={addNotes}
-          onModalHandler={onModalHandler}
-        />
-      </div>
-    </>
+    <MainContent
+      titleTop={locale === "id" ? "Catatan aktif" : "Active Notes"}
+      loading={loading}
+      initializing={initializing}
+      filteredActive={filteredActive}
+      activeNotes={activeNotes}
+      setActiveNotes={setActiveNotes}
+      visibleModal={visibleModal}
+      setVisibleModal={setVisibleModal}
+      setSearchField={setSearchField}
+      onSearch={onSearch}
+      onModalHandler={onModalHandler}
+    />
   );
 };
 
 HomePage.propTypes = {
   filteredActive: PropTypes.arrayOf(PropTypes.object).isRequired,
   activeNotes: PropTypes.arrayOf(PropTypes.object).isRequired,
-  onDelete: PropTypes.func.isRequired,
-  onArchive: PropTypes.func.isRequired,
+  setActiveNotes: PropTypes.func.isRequired,
   visibleModal: PropTypes.bool.isRequired,
   setVisibleModal: PropTypes.func.isRequired,
-  addNotes: PropTypes.func.isRequired,
+  setSearchField: PropTypes.func.isRequired,
+  onSearch: PropTypes.func.isRequired,
   onModalHandler: PropTypes.func.isRequired,
 };
 

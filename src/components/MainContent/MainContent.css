@@ -6,26 +6,6 @@
   padding-top: 20px;
 }
 
-.top-main-content {
-  height: 100px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.add-button-side {
-  flex: 30%;
-  background-color: #f1f1f1;
-  padding: 20px;
-}
-
-.search-bar-side {
-  flex: 70%;
-  background-color: white;
-  padding: 20px;
-}
-
 .active-section,
 .archive-section {
   margin-bottom: 40px;
@@ -36,7 +16,7 @@
   margin-bottom: 20px;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 600px) {
   nav {
     display: block;
     padding: 12px 20px;
@@ -46,21 +26,37 @@
     margin: 24px 20px;
   }
 
-  .row, .navbar {   
-    flex-direction: column;
-  }
+  .flexbox {
+    margin: 24px 0px;
+	}
 
-  /* .add-button-side {
-    flex: 30%;
-    background-color: #f1f1f1;
-    padding: 20px;
+  .leftside {
+    padding-bottom: 12px;
   }
-  
-  .search-bar-side {
-    flex: 70%;
-    background-color: white;
-    padding: 20px;
-  } */
 }
 
-/* coba */
+.leftside, .rightside {
+  color: rgba(255,255,255,.4);
+  text-align: left;
+}
+
+@media ( min-width : 600px ){
+	.flexbox {
+    width: 100%;
+    height: 100px;
+    margin: 0 auto;
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
+	}
+  .leftside {
+    -webkit-flex: 1;
+    flex: 1;
+  }
+  .rightside {
+    -webkit-flex: 1;
+    flex: 1;
+    display: flex;
+    justify-content: right;
+  }
+}

@@ -25,20 +25,23 @@ const MainContent = ({
     <>
       <div className="main-content">
         <h2 className="light-text">{titleTop}</h2>
-        <div className="top-main-content row">
-          <NewNoteButton
-            className="add-button-side"
-            visibleModal={visibleModal}
-            onModalHandler={onModalHandler}
-            setActiveNotes={setActiveNotes}
-          />
-          <SearchBar
-            className="search-bar-side"
-            onSearch={onSearch}
-            setSearchField={setSearchField}
-            onTyping={onTyping}
-            setOnTyping={setOnTyping}
-          />
+
+        <div className="flexbox">
+          <div className="leftside">
+            <NewNoteButton
+              visibleModal={visibleModal}
+              onModalHandler={onModalHandler}
+              setActiveNotes={setActiveNotes}
+            />
+          </div>
+          <div className="rightside">
+            <SearchBar
+              onSearch={onSearch}
+              setSearchField={setSearchField}
+              onTyping={onTyping}
+              setOnTyping={setOnTyping}
+            />
+          </div>
         </div>
         <section className="active-section">
           {initializing ? null : loading ? (

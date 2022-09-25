@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import "./SearchBar.css";
-import { BiSearchAlt2 } from "react-icons/bi";
 import { IoIosCloseCircle } from "react-icons/io";
 import PropTypes from "prop-types";
 import LocaleContext from "../../contexts/LocaleContext";
@@ -33,11 +32,6 @@ const SearchBar = ({ setSearchField, onSearch, onTyping, setOnTyping }) => {
           type="text"
           placeholder={locale === "id" ? "Cari..." : "Search..."}
         />
-        <div className="search-icon">
-          <i>
-            <BiSearchAlt2 />
-          </i>
-        </div>
         {onTyping === "" ? null : (
           <div onClick={resetSearchState} className="reset-button">
             <IoIosCloseCircle />

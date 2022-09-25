@@ -21,21 +21,11 @@
   outline: none;
 }
 
-.search-bar .search-icon {
-  position: absolute;
-  top: 0;
-  height: 110%;
-  left: 15px;
-  color: #395b64;
-  display: flex;
-  align-items: center;
-}
-
 .reset-button {
   position: absolute;
   top: 0;
   right: 15px;
-  height: 33px;
+  height: 32px;
   width: fit-content;
   color: red;
   font-size: larger;
@@ -43,4 +33,10 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+}
+
+@media only screen and (max-width: 768px) {
+  .input-bar {
+    width: 100%;
+  }
 }

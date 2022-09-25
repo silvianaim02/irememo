@@ -8,13 +8,18 @@ import { useState } from "react";
 const DetailPage = () => {
   let { noteId } = useParams();
   const [loading, setLoading] = useState(false);
-  const [detailNote, setDetailNote] = useState([]);
+  const [detailNote, setDetailNote] = useState({});
+  const [nothingId, setNothingId] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      const { data } = await getNote(noteId);
-      setDetailNote(data);
+      const response = await getNote(noteId);
+      if (response.error) {
+        setNothingId(true);
+      } else {
+        setDetailNote(response.data);
+      }
       setTimeout(() => {
         setLoading(false);
       }, 300);
@@ -22,15 +27,11 @@ const DetailPage = () => {
     fetchData();
   }, [noteId]);
 
-  if (detailNote.length === 0) {
-    return null;
-  }
-
   return (
     <>
       {loading ? (
         <p>Loading...</p>
-      ) : detailNote === null ? (
+      ) : nothingId ? (
         <NotFound />
       ) : (
         <Detail detailNote={detailNote} />

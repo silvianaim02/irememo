@@ -29,15 +29,13 @@ const Modal = ({ visibleModal, onModalHandler, setActiveNotes }) => {
     if (body.length < 1) {
       setRequiredErr(true);
     } else {
-      const response = await addNote({ title, body });
+      await addNote({ title, body });
       if (setActiveNotes) {
         const { data } = await getActiveNotes();
         setActiveNotes(data);
       }
       resetInputState();
       navigate("/");
-
-      console.log(response);
     }
   };
 

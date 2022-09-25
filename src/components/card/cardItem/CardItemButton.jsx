@@ -57,8 +57,8 @@ const CardItemButton = ({ id, archived }) => {
 };
 
 CardItemButton.propTypes = {
-  id: PropTypes.string.isRequired,
-  archived: PropTypes.bool.isRequired,
+  id: PropTypes.string,
+  archived: PropTypes.bool,
 };
 
 export default CardItemButton;

@@ -127,8 +127,9 @@ const App = () => {
             </header>
             <main>
               <Routes>
+                <Route path="/*" element={<Navigate to="/login" replace />} />
                 <Route
-                  path="/*"
+                  path="/login"
                   element={<LoginPage loginSuccess={onLoginSuccess} />}
                 />
                 <Route path="/register" element={<RegisterPage />} />
@@ -199,6 +200,8 @@ const App = () => {
                   }
                 />
               </Route>
+              <Route path="/login" element={<Navigate to="/" replace />} />
+              <Route path="/register" element={<Navigate to="/" replace />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>

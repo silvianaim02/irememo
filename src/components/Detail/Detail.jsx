@@ -9,6 +9,7 @@ import ThemeContext from "../../contexts/ThemeContext";
 const Detail = ({ detailNote }) => {
   const { locale } = useContext(LocaleContext);
   const { theme } = useContext(ThemeContext);
+
   return (
     <>
       <div

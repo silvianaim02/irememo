@@ -23,22 +23,24 @@ const SearchBar = ({ setSearchField, onSearch, onTyping, setOnTyping }) => {
   };
 
   return (
-    <>
-      <div className="search-bar">
-        <input
-          onChange={onChange}
-          className={theme === "dark" ? "low-dark-theme input-bar " : "input-bar light-theme"}
-          value={onTyping}
-          type="text"
-          placeholder={locale === "id" ? "Cari..." : "Search..."}
-        />
-        {onTyping === "" ? null : (
-          <div onClick={resetSearchState} className="reset-button">
-            <IoIosCloseCircle />
-          </div>
-        )}
-      </div>
-    </>
+    <div className="search-bar">
+      <input
+        onChange={onChange}
+        className={
+          theme === "dark"
+            ? "low-dark-theme input-bar "
+            : "input-bar light-theme"
+        }
+        value={onTyping}
+        type="text"
+        placeholder={locale === "id" ? "Cari..." : "Search..."}
+      />
+      {onTyping === "" ? null : (
+        <div onClick={resetSearchState} className="reset-button">
+          <IoIosCloseCircle />
+        </div>
+      )}
+    </div>
   );
 };
 

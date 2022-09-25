@@ -8,8 +8,11 @@ import NotFound from "./pages/NotFound";
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
 import { getUserLogged, putAccessToken } from "./utils/api";
+import { ROUTES } from "./utils/constantsRoute";
 import LocaleContext from "./contexts/LocaleContext";
 import ThemeContext from "./contexts/ThemeContext";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
@@ -115,6 +118,50 @@ const App = () => {
 
   if (authedUser === null) {
     return (
+      <>
+        <LocaleContext.Provider value={localeContextValue}>
+          <ThemeContext.Provider value={themeContextValue}>
+            <div className="irememo-app">
+              <header>
+                <Navbar
+                  setSearchField={setSearchField}
+                  onSearch={updateKeywordUrlSearchParams}
+                  authedUser={authedUser}
+                />
+              </header>
+              <main>
+                <Routes>
+                  <Route
+                    path={`${ROUTES.ROOT}*`}
+                    element={<Navigate to={ROUTES.LOGIN} replace />}
+                  />
+                  <Route
+                    path={ROUTES.LOGIN}
+                    element={<LoginPage loginSuccess={onLoginSuccess} />}
+                  />
+                  <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
+                </Routes>
+              </main>
+            </div>
+          </ThemeContext.Provider>
+        </LocaleContext.Provider>
+        <ToastContainer
+          position="top-center"
+          autoClose={1500}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
+      </>
+    );
+  }
+
+  return (
+    <>
       <LocaleContext.Provider value={localeContextValue}>
         <ThemeContext.Provider value={themeContextValue}>
           <div className="irememo-app">
@@ -122,92 +169,86 @@ const App = () => {
               <Navbar
                 setSearchField={setSearchField}
                 onSearch={updateKeywordUrlSearchParams}
+                logout={onLogout}
+                name={authedUser.name}
                 authedUser={authedUser}
               />
             </header>
             <main>
               <Routes>
-                <Route path="/*" element={<Navigate to="/login" replace />} />
                 <Route
-                  path="/login"
-                  element={<LoginPage loginSuccess={onLoginSuccess} />}
+                  path={ROUTES.ROOT}
+                  element={
+                    <HomePage
+                      filteredActive={filteredActive}
+                      activeNotes={activeNotes}
+                      setActiveNotes={setActiveNotes}
+                      searchField={searchField}
+                      setSearchField={setSearchField}
+                      onSearch={updateKeywordUrlSearchParams}
+                      visibleModal={visibleModal}
+                      setVisibleModal={setVisibleModal}
+                      onModalHandler={onModalHandler}
+                    />
+                  }
                 />
-                <Route path="/register" element={<RegisterPage />} />
+                <Route
+                  path={ROUTES.ARCHIVE}
+                  element={
+                    <ArchivePage
+                      filteredArchive={filteredArchive}
+                      archiveNotes={archiveNotes}
+                      setArchiveNotes={setArchiveNotes}
+                      searchField={searchField}
+                      setSearchField={setSearchField}
+                      onSearch={updateKeywordUrlSearchParams}
+                      visibleModal={visibleModal}
+                      setVisibleModal={setVisibleModal}
+                      onModalHandler={onModalHandler}
+                    />
+                  }
+                />
+                <Route path={ROUTES.NOTES}>
+                  <Route
+                    index
+                    element={<Navigate to={ROUTES.ROOT} replace />}
+                  />
+                  <Route
+                    path=":noteId"
+                    element={
+                      <DetailPage
+                        setActiveNotes={setActiveNotes}
+                        setArchiveNotes={setArchiveNotes}
+                      />
+                    }
+                  />
+                </Route>
+                <Route
+                  path={ROUTES.LOGIN}
+                  element={<Navigate to={ROUTES.ROOT} replace />}
+                />
+                <Route
+                  path={ROUTES.REGISTER}
+                  element={<Navigate to={ROUTES.ROOT} replace />}
+                />
+                <Route path="*" element={<NotFound />} />
               </Routes>
             </main>
           </div>
         </ThemeContext.Provider>
       </LocaleContext.Provider>
-    );
-  }
-
-  return (
-    <LocaleContext.Provider value={localeContextValue}>
-      <ThemeContext.Provider value={themeContextValue}>
-        <div className="irememo-app">
-          <header>
-            <Navbar
-              setSearchField={setSearchField}
-              onSearch={updateKeywordUrlSearchParams}
-              logout={onLogout}
-              name={authedUser.name}
-              authedUser={authedUser}
-            />
-          </header>
-          <main>
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <HomePage
-                    filteredActive={filteredActive}
-                    activeNotes={activeNotes}
-                    setActiveNotes={setActiveNotes}
-                    searchField={searchField}
-                    setSearchField={setSearchField}
-                    onSearch={updateKeywordUrlSearchParams}
-                    visibleModal={visibleModal}
-                    setVisibleModal={setVisibleModal}
-                    onModalHandler={onModalHandler}
-                  />
-                }
-              />
-              <Route
-                path="/archive"
-                element={
-                  <ArchivePage
-                    filteredArchive={filteredArchive}
-                    archiveNotes={archiveNotes}
-                    setArchiveNotes={setArchiveNotes}
-                    searchField={searchField}
-                    setSearchField={setSearchField}
-                    onSearch={updateKeywordUrlSearchParams}
-                    visibleModal={visibleModal}
-                    setVisibleModal={setVisibleModal}
-                    onModalHandler={onModalHandler}
-                  />
-                }
-              />
-              <Route path="notes">
-                <Route index element={<Navigate to="/" replace />} />
-                <Route
-                  path=":noteId"
-                  element={
-                    <DetailPage
-                      setActiveNotes={setActiveNotes}
-                      setArchiveNotes={setArchiveNotes}
-                    />
-                  }
-                />
-              </Route>
-              <Route path="/login" element={<Navigate to="/" replace />} />
-              <Route path="/register" element={<Navigate to="/" replace />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </main>
-        </div>
-      </ThemeContext.Provider>
-    </LocaleContext.Provider>
+      <ToastContainer
+        position="top-center"
+        autoClose={1500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+    </>
   );
 };
 

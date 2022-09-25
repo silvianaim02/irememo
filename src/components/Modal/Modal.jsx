@@ -6,6 +6,7 @@ import { addNote, getActiveNotes } from "../../utils/api";
 import LocaleContext from "../../contexts/LocaleContext";
 import { addContent } from "../../utils/content";
 import ThemeContext from "../../contexts/ThemeContext";
+import { toast } from "react-toastify";
 
 const Modal = ({ visibleModal, onModalHandler, setActiveNotes }) => {
   const { locale } = useContext(LocaleContext);
@@ -30,6 +31,10 @@ const Modal = ({ visibleModal, onModalHandler, setActiveNotes }) => {
       setRequiredErr(true);
     } else {
       await addNote({ title, body });
+      toast.success("catatan berhasil ditambahkan!", {
+        theme: "colored",
+        icon: "🚀",
+      });
       if (setActiveNotes) {
         const { data } = await getActiveNotes();
         setActiveNotes(data);
@@ -92,7 +97,13 @@ const Modal = ({ visibleModal, onModalHandler, setActiveNotes }) => {
               <p className="red-text">{addContent[locale].redText}</p>
             ) : null}
           </div>
-          <div className={theme === "dark" ? "modal-footer low-dark-theme" : "modal-footer blue-bg-theme"}>
+          <div
+            className={
+              theme === "dark"
+                ? "modal-footer low-dark-theme"
+                : "modal-footer blue-bg-theme"
+            }
+          >
             <button onClick={resetInputState} className="button-cancel">
               {locale === "id" ? "Batal" : "Cancel"}
             </button>

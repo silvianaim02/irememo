@@ -5,6 +5,7 @@ import useInput from "../../hooks/useInput";
 import LocaleContext from "../../contexts/LocaleContext";
 import { registerContent } from "../../utils/content";
 import ThemeContext from "../../contexts/ThemeContext";
+import { toast } from "react-toastify";
 
 const RegisterInput = ({ register }) => {
   const { locale } = useContext(LocaleContext);
@@ -19,9 +20,15 @@ const RegisterInput = ({ register }) => {
   const onRegisterSubmit = (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      alert("confirm password pleadeee");
+      toast.warning("please make sure your password match", {
+        theme: "colored",
+      });
     } else {
       register({ name, email, password });
+      toast.success("Akun berhasil didaftarkan, silahkan login", {
+        theme: "colored",
+        icon: "🚀",
+      });
     }
   };
 

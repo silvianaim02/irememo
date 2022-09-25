@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import { archiveNote, deleteNote, unarchiveNote } from "../../../utils/api";
 import { useNavigate } from "react-router-dom";
 import LocaleContext from "../../../contexts/LocaleContext";
+import { toast } from "react-toastify";
 
 const CardItemButton = ({ id, archived }) => {
   const { locale } = useContext(LocaleContext);
@@ -13,17 +14,29 @@ const CardItemButton = ({ id, archived }) => {
 
   const onDeleteHandler = async (e) => {
     e.preventDefault();
-    await deleteNote(id);
-    navigate("/");
+    const { error } = await deleteNote(id);
+    if (!error) {
+      toast.success("Berhasil hapus catatan", {
+        theme: "colored",
+        icon: "🚀",
+      });
+      navigate("/");
+    }
   };
 
   const onArchive = async (e) => {
     e.preventDefault();
     if (archived === false) {
       await archiveNote(id);
+      toast.info("Catatan berhasil diarsipkan", {
+        theme: "colored",
+      });
       navigate("/");
     } else {
       await unarchiveNote(id);
+      toast.info("Catatan batal diarsipkan", {
+        theme: "colored",
+      });
       navigate("/");
     }
   };

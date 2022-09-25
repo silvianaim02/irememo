@@ -7,6 +7,7 @@ import { login } from "../utils/api";
 import LocaleContext from "../contexts/LocaleContext";
 import { loginContent } from "../utils/content";
 import ThemeContext from "../contexts/ThemeContext";
+import { toast } from "react-toastify";
 
 const LoginPage = ({ loginSuccess }) => {
   const { locale } = useContext(LocaleContext);
@@ -17,7 +18,11 @@ const LoginPage = ({ loginSuccess }) => {
     const { error, data } = await login({ email, password });
     if (!error) {
       loginSuccess(data);
-      navigate("");
+      toast.success("berhasil login!", {
+        theme: "colored",
+        icon: "🚀",
+      });
+      navigate("/");
     }
   }
 

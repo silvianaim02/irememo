@@ -11,27 +11,27 @@ const CardList = ({ notes }) => {
     return (
       <div className="card-list">
         <div className="empty-notes">
-          <h1 className={theme === "dark" ? "light-text" : "dark-blue-text"}>Catatan kosong :(</h1>
+          <h1 className={theme === "dark" ? "light-text" : "dark-blue-text"}>
+            Catatan kosong :(
+          </h1>
         </div>
       </div>
     );
   }
 
   return (
-    <>
-      <div className="card-list">
-        {notes.map((note) => (
-          <CardItem
-            key={note.id}
-            {...note}
-            id={note.id}
-            title={note.title}
-            body={note.body}
-            createdAt={note.createdAt}
-          />
-        ))}
-      </div>
-    </>
+    <div className="card-list">
+      {notes.map((note) => (
+        <CardItem
+          key={note.id}
+          {...note}
+          id={note.id}
+          title={note.title}
+          body={note.body}
+          createdAt={note.createdAt}
+        />
+      ))}
+    </div>
   );
 };
 

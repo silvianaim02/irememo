@@ -5,10 +5,13 @@ import logo from "../../images/logo.png";
 import PropTypes from "prop-types";
 import { FiLogOut } from "react-icons/fi";
 import LocaleContext from "../../contexts/LocaleContext";
+import ThemeContext from "../../contexts/ThemeContext";
+import { FaMoon, FaSun } from "react-icons/fa";
 
 const Navbar = ({ setSearchField, logout, name, authedUser }) => {
   const navigate = useNavigate();
   const { locale, toggleLocale } = useContext(LocaleContext);
+  const { theme, toggleTheme } = useContext(ThemeContext);
 
   const handleNavigateHome = (e) => {
     e.preventDefault();
@@ -25,35 +28,45 @@ const Navbar = ({ setSearchField, logout, name, authedUser }) => {
   let defaultStyle = {
     textDecoration: "none",
     cursor: "pointer",
-    color: "white",
-    backgroundColor: "#75c3ff",
   };
 
   let activeStyle = {
     textDecoration: "none",
     cursor: "pointer",
-    color: "white",
-    borderBottom: "solid 3px #e9e125",
+    borderBottom: "solid 3px #75c3ff",
   };
 
   return (
     <>
-      <nav>
-        <div>
+      <nav className={theme === "dark" ? "mid-dark-theme" : "light-theme"}>
+        <div className="logo-wrapper">
           <button onClick={handleNavigateHome} className="logo">
             <img src={logo} alt="logo" />
           </button>
-          <button onClick={toggleLocale}>
-            {locale === "id" ? "English" : "Indonesia"}
-          </button>
+          <div className="toggle-wrapper">
+            <button
+              onClick={toggleTheme}
+              className={theme === "dark" ? "light-text" : "dark-text"}
+            >
+              <span>{theme === "light" ? <FaMoon /> : <FaSun />}</span>
+            </button>
+            <button
+              onClick={toggleLocale}
+              className={
+                theme === "dark"
+                  ? "light-text bold-text"
+                  : "dark-text bold-text"
+              }
+            >
+              <span>{locale === "id" ? "EN" : "ID"}</span>
+            </button>
+          </div>
         </div>
-        <div className="nav-list">
-          {authedUser !== null ? (
+
+        {authedUser !== null ? (
+          <div className="nav-list">
             <ul className="nav-items">
-              <button
-                onClick={handleNavigateHome}
-                style={{ backgroundColor: "#75c3ff" }}
-              >
+              <button className="light-text" onClick={handleNavigateHome}>
                 <NavLink
                   to="/"
                   className="nav-item"
@@ -61,13 +74,14 @@ const Navbar = ({ setSearchField, logout, name, authedUser }) => {
                     isActive ? activeStyle : defaultStyle
                   }
                 >
-                  {locale === "id" ? "Beranda" : "Home"}
+                  <span
+                    className={theme === "dark" ? "light-text" : "dark-text"}
+                  >
+                    {locale === "id" ? "Beranda" : "Home"}
+                  </span>
                 </NavLink>
               </button>
-              <button
-                onClick={handleNavigateArchive}
-                style={{ backgroundColor: "#75c3ff" }}
-              >
+              <button onClick={handleNavigateArchive}>
                 <NavLink
                   className="nav-item"
                   to="archive"
@@ -75,16 +89,24 @@ const Navbar = ({ setSearchField, logout, name, authedUser }) => {
                     isActive ? activeStyle : defaultStyle
                   }
                 >
-                  {locale === "id" ? "Arsip" : "Archive"}
+                  <span
+                    className={theme === "dark" ? "light-text" : "dark-text"}
+                  >
+                    {locale === "id" ? "Arsip" : "Archive"}
+                  </span>
                 </NavLink>
               </button>
-              <button onClick={logout}>
-                {name}
-                <FiLogOut />
-              </button>
             </ul>
-          ) : null}
-        </div>
+            <div className="logout-section">
+              <p className="username">{name}</p>
+              <button onClick={logout}>
+                <span className={theme === "dark" ? "light-text" : "dark-text"}>
+                  <FiLogOut />
+                </span>
+              </button>
+            </div>
+          </div>
+        ) : null}
       </nav>
     </>
   );

@@ -5,7 +5,7 @@ import "./Detail.css";
 import PropTypes from "prop-types";
 import LocaleContext from "../../contexts/LocaleContext";
 
-const Detail = ({ detailNote, onArchive }) => {
+const Detail = ({ detailNote}) => {
   const { locale } = useContext(LocaleContext);
   return (
     <>
@@ -13,7 +13,6 @@ const Detail = ({ detailNote, onArchive }) => {
         <div className="delete-archive-button">
           <CardItemButton
             id={detailNote.id}
-            onArchive={onArchive}
             archived={detailNote.archived}
           />
         </div>
@@ -33,7 +32,6 @@ const Detail = ({ detailNote, onArchive }) => {
 
 Detail.propTypes = {
   detailNote: PropTypes.object.isRequired,
-  onArchive: PropTypes.func.isRequired,
 };
 
 export default Detail;

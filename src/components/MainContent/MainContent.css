@@ -2,11 +2,28 @@
   margin: 24px 100px;
 }
 
+.main-content h2 {
+  padding-top: 20px;
+}
+
 .top-main-content {
   height: 100px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+}
+
+.add-button-side {
+  flex: 30%;
+  background-color: #f1f1f1;
+  padding: 20px;
+}
+
+.search-bar-side {
+  flex: 70%;
+  background-color: white;
+  padding: 20px;
 }
 
 .active-section,
@@ -16,6 +33,34 @@
 
 .active-section h2,
 .archive-section h2 {
-  color: #25a0ff;
   margin-bottom: 20px;
 }
+
+@media only screen and (max-width: 768px) {
+  nav {
+    display: block;
+    padding: 12px 20px;
+  }
+
+  .main-content {
+    margin: 24px 20px;
+  }
+
+  .row, .navbar {   
+    flex-direction: column;
+  }
+
+  /* .add-button-side {
+    flex: 30%;
+    background-color: #f1f1f1;
+    padding: 20px;
+  }
+  
+  .search-bar-side {
+    flex: 70%;
+    background-color: white;
+    padding: 20px;
+  } */
+}
+
+/* coba */

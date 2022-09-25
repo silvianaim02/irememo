@@ -9,9 +9,6 @@ button {
 }
 
 .add-new-button {
-  background-color: #25a0ff;
-  color: #ffffff;
-  border: 1px solid #25a0ff;
   border-radius: 24px;
   display: flex;
   align-items: center;

@@ -1,12 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import {
-  Navigate,
-  Route,
-  Routes,
-  useNavigate,
-  useSearchParams,
-} from "react-router-dom";
-import { getInitialData } from "./utils";
+import { Navigate, Route, Routes, useSearchParams } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import ArchivePage from "./pages/ArchivePage";
 import DetailPage from "./pages/DetailPage";
@@ -16,20 +9,21 @@ import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
 import { getUserLogged, putAccessToken } from "./utils/api";
 import LocaleContext from "./contexts/LocaleContext";
+import ThemeContext from "./contexts/ThemeContext";
 
 const App = () => {
-  const navigate = useNavigate();
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
   const [locale, setLocale] = useState(localStorage.getItem("locale") || "id");
   const [authedUser, setAuthedUser] = useState(null);
   const [initializing, setInitializing] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams("");
   const keyword = searchParams.get("keyword");
   const [searchField, setSearchField] = useState(keyword ? keyword : "");
-  const [notes, setNotes] = useState(getInitialData());
   const [visibleModal, setVisibleModal] = useState(false);
   const [activeNotes, setActiveNotes] = useState([]);
   const [archiveNotes, setArchiveNotes] = useState([]);
 
+  // getUserLogged
   useEffect(() => {
     const fetchData = async () => {
       const { data } = await getUserLogged();
@@ -39,7 +33,27 @@ const App = () => {
     fetchData();
   }, []);
 
-  // locale toggle
+  // Theme
+  useEffect(() => {
+    if (theme === "dark") {
+      document.body.classList.add("dark-theme");
+      document.body.classList.remove("blue-bg-theme");
+    } else if (theme === "light") {
+      document.body.classList.remove("dark-theme");
+      document.body.classList.add("blue-bg-theme");
+    }
+  }, [theme]);
+
+  // Theme toggle
+  const toggleTheme = () => {
+    setTheme((prevTheme) => {
+      const newTheme = prevTheme === "light" ? "dark" : "light";
+      localStorage.setItem("theme", newTheme);
+      return newTheme;
+    });
+  };
+
+  // Locale toggle
   const toggleLocale = () => {
     setLocale((prevLocale) => {
       const newLocale = prevLocale === "id" ? "en" : "id";
@@ -47,6 +61,13 @@ const App = () => {
       return newLocale;
     });
   };
+
+  const themeContextValue = useMemo(() => {
+    return {
+      theme,
+      toggleTheme,
+    };
+  });
 
   const localeContextValue = useMemo(() => {
     return {
@@ -83,18 +104,6 @@ const App = () => {
     return note.title.toLowerCase().includes(searchField.toLowerCase());
   });
 
-  // Archive Note Handler
-  const onArchiveNotesHandler = (id) => {
-    const newNotes = notes.map((note) => {
-      if (id === note.id) {
-        return { ...note, archived: !note.archived };
-      }
-      return note;
-    });
-    setNotes(newNotes);
-    navigate("/");
-  };
-
   // Modal Handler
   const onModalHandler = () => {
     setVisibleModal(!visibleModal);
@@ -104,102 +113,97 @@ const App = () => {
     return null;
   }
 
-  // not user
   if (authedUser === null) {
     return (
       <LocaleContext.Provider value={localeContextValue}>
-        <div className="irememo-app">
-          <header>
-            <Navbar
-              setSearchField={setSearchField}
-              onSearch={updateKeywordUrlSearchParams}
-              authedUser={authedUser}
-            />
-          </header>
-          <main>
-            <Routes>
-              <Route
-                path="/*"
-                element={<LoginPage loginSuccess={onLoginSuccess} />}
+        <ThemeContext.Provider value={themeContextValue}>
+          <div className="irememo-app">
+            <header>
+              <Navbar
+                setSearchField={setSearchField}
+                onSearch={updateKeywordUrlSearchParams}
+                authedUser={authedUser}
               />
-              <Route path="/register" element={<RegisterPage />} />
-            </Routes>
-          </main>
-        </div>
+            </header>
+            <main>
+              <Routes>
+                <Route
+                  path="/*"
+                  element={<LoginPage loginSuccess={onLoginSuccess} />}
+                />
+                <Route path="/register" element={<RegisterPage />} />
+              </Routes>
+            </main>
+          </div>
+        </ThemeContext.Provider>
       </LocaleContext.Provider>
     );
   }
 
   return (
     <LocaleContext.Provider value={localeContextValue}>
-      <div className="irememo-app">
-        <header>
-          <Navbar
-            setSearchField={setSearchField}
-            onSearch={updateKeywordUrlSearchParams}
-            logout={onLogout}
-            name={authedUser.name}
-            authedUser={authedUser}
-          />
-        </header>
-        <main>
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <HomePage
-                  notes={notes}
-                  setNotes={setNotes}
-                  filteredActive={filteredActive}
-                  activeNotes={activeNotes}
-                  setActiveNotes={setActiveNotes}
-                  searchField={searchField}
-                  setSearchField={setSearchField}
-                  onSearch={updateKeywordUrlSearchParams}
-                  onArchive={onArchiveNotesHandler}
-                  visibleModal={visibleModal}
-                  setVisibleModal={setVisibleModal}
-                  onModalHandler={onModalHandler}
-                />
-              }
+      <ThemeContext.Provider value={themeContextValue}>
+        <div className="irememo-app">
+          <header>
+            <Navbar
+              setSearchField={setSearchField}
+              onSearch={updateKeywordUrlSearchParams}
+              logout={onLogout}
+              name={authedUser.name}
+              authedUser={authedUser}
             />
-            <Route
-              path="/archive"
-              element={
-                <ArchivePage
-                  notes={notes}
-                  setNotes={setNotes}
-                  filteredArchive={filteredArchive}
-                  archiveNotes={archiveNotes}
-                  setArchiveNotes={setArchiveNotes}
-                  searchField={searchField}
-                  setSearchField={setSearchField}
-                  onSearch={updateKeywordUrlSearchParams}
-                  onArchive={onArchiveNotesHandler}
-                  visibleModal={visibleModal}
-                  setVisibleModal={setVisibleModal}
-                  onModalHandler={onModalHandler}
-                />
-              }
-            />
-            <Route path="notes">
-              <Route index element={<Navigate to="/" replace />} />
+          </header>
+          <main>
+            <Routes>
               <Route
-                path=":noteId"
+                path="/"
                 element={
-                  <DetailPage
-                    notes={notes}
-                    onArchive={onArchiveNotesHandler}
+                  <HomePage
+                    filteredActive={filteredActive}
+                    activeNotes={activeNotes}
                     setActiveNotes={setActiveNotes}
-                    setArchiveNotes={setArchiveNotes}
+                    searchField={searchField}
+                    setSearchField={setSearchField}
+                    onSearch={updateKeywordUrlSearchParams}
+                    visibleModal={visibleModal}
+                    setVisibleModal={setVisibleModal}
+                    onModalHandler={onModalHandler}
                   />
                 }
               />
-            </Route>
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </main>
-      </div>
+              <Route
+                path="/archive"
+                element={
+                  <ArchivePage
+                    filteredArchive={filteredArchive}
+                    archiveNotes={archiveNotes}
+                    setArchiveNotes={setArchiveNotes}
+                    searchField={searchField}
+                    setSearchField={setSearchField}
+                    onSearch={updateKeywordUrlSearchParams}
+                    visibleModal={visibleModal}
+                    setVisibleModal={setVisibleModal}
+                    onModalHandler={onModalHandler}
+                  />
+                }
+              />
+              <Route path="notes">
+                <Route index element={<Navigate to="/" replace />} />
+                <Route
+                  path=":noteId"
+                  element={
+                    <DetailPage
+                      setActiveNotes={setActiveNotes}
+                      setArchiveNotes={setArchiveNotes}
+                    />
+                  }
+                />
+              </Route>
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </main>
+        </div>
+      </ThemeContext.Provider>
     </LocaleContext.Provider>
   );
 };

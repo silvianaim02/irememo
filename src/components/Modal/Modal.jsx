@@ -2,12 +2,14 @@ import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Modal.css";
 import PropTypes from "prop-types";
-import { addNote } from "../../utils/api";
+import { addNote, getActiveNotes } from "../../utils/api";
 import LocaleContext from "../../contexts/LocaleContext";
 import { addContent } from "../../utils/content";
+import ThemeContext from "../../contexts/ThemeContext";
 
-const Modal = ({ visibleModal, onModalHandler }) => {
+const Modal = ({ visibleModal, onModalHandler, setActiveNotes }) => {
   const { locale } = useContext(LocaleContext);
+  const { theme } = useContext(ThemeContext);
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [requiredErr, setRequiredErr] = useState(false);
@@ -27,9 +29,15 @@ const Modal = ({ visibleModal, onModalHandler }) => {
     if (body.length < 1) {
       setRequiredErr(true);
     } else {
-      addNote({ title, body });
+      const response = await addNote({ title, body });
+      if (setActiveNotes) {
+        const { data } = await getActiveNotes();
+        setActiveNotes(data);
+      }
       resetInputState();
       navigate("/");
+
+      console.log(response);
     }
   };
 
@@ -40,7 +48,14 @@ const Modal = ({ visibleModal, onModalHandler }) => {
   return (
     <>
       <div className="modal">
-        <form onSubmit={onAddNotes} className="modal-content">
+        <form
+          onSubmit={onAddNotes}
+          className={
+            theme === "dark"
+              ? "modal-content mid-dark-theme"
+              : "modal-content light-theme"
+          }
+        >
           <div className="modal-body">
             <h4 className="modal-title">{addContent[locale].header}</h4>
             <div className="remaining-text">
@@ -79,7 +94,7 @@ const Modal = ({ visibleModal, onModalHandler }) => {
               <p className="red-text">{addContent[locale].redText}</p>
             ) : null}
           </div>
-          <div className="modal-footer">
+          <div className={theme === "dark" ? "modal-footer low-dark-theme" : "modal-footer blue-bg-theme"}>
             <button onClick={resetInputState} className="button-cancel">
               {locale === "id" ? "Batal" : "Cancel"}
             </button>
@@ -94,6 +109,7 @@ const Modal = ({ visibleModal, onModalHandler }) => {
 };
 
 Modal.propTypes = {
+  setActiveNotes: PropTypes.func,
   visibleModal: PropTypes.bool.isRequired,
   onModalHandler: PropTypes.func.isRequired,
 };

@@ -7,40 +7,49 @@ import SearchBar from "../SearchBar/SearchBar";
 
 const MainContent = ({
   titleTop,
+  loading,
+  initializing,
   filteredActive,
   activeNotes,
+  setActiveNotes,
   filteredArchive,
   archiveNotes,
   setSearchField,
   onSearch,
-  onArchive,
   visibleModal,
   onModalHandler,
 }) => {
   const [onTyping, setOnTyping] = useState("");
+
   return (
     <>
       <div className="main-content">
-        <section className="top-main-content">
+        <h2 className="light-text">{titleTop}</h2>
+        <div className="top-main-content row">
           <NewNoteButton
+            className="add-button-side"
             visibleModal={visibleModal}
             onModalHandler={onModalHandler}
+            setActiveNotes={setActiveNotes}
           />
           <SearchBar
+            className="search-bar-side"
             onSearch={onSearch}
             setSearchField={setSearchField}
             onTyping={onTyping}
             setOnTyping={setOnTyping}
           />
-        </section>
+        </div>
         <section className="active-section">
-          <h2>{titleTop}</h2>
-          <CardList
-            notes={
-              filteredActive || activeNotes || filteredArchive || archiveNotes
-            }
-            onArchive={onArchive}
-          />
+          {initializing ? null : loading ? (
+            <p>Loding</p>
+          ) : (
+            <CardList
+              notes={
+                filteredActive || activeNotes || filteredArchive || archiveNotes
+              }
+            />
+          )}
         </section>
       </div>
     </>
@@ -49,13 +58,15 @@ const MainContent = ({
 
 MainContent.propTypes = {
   titleTop: PropTypes.string.isRequired,
+  loading: PropTypes.bool,
+  initializing: PropTypes.bool,
   setSearchField: PropTypes.func.isRequired,
   onSearch: PropTypes.func.isRequired,
   filteredActive: PropTypes.arrayOf(PropTypes.object),
   activeNotes: PropTypes.arrayOf(PropTypes.object),
+  setActiveNotes: PropTypes.func,
   filteredArchive: PropTypes.arrayOf(PropTypes.object),
   archiveNotes: PropTypes.arrayOf(PropTypes.object),
-  onArchive: PropTypes.func.isRequired,
   visibleModal: PropTypes.bool.isRequired,
   onModalHandler: PropTypes.func.isRequired,
 };

@@ -2,20 +2,22 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Detail from "../components/Detail/Detail";
 import NotFound from "./NotFound";
-import PropTypes from "prop-types";
-import {
-  getNote,
-} from "../utils/api";
+import { getNote } from "../utils/api";
 import { useState } from "react";
 
-const DetailPage = ({ onArchive }) => {
+const DetailPage = () => {
   let { noteId } = useParams();
+  const [loading, setLoading] = useState(false);
   const [detailNote, setDetailNote] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       const { data } = await getNote(noteId);
       setDetailNote(data);
+      setTimeout(() => {
+        setLoading(false);
+      }, 300);
     };
     fetchData();
   }, [noteId]);
@@ -26,20 +28,15 @@ const DetailPage = ({ onArchive }) => {
 
   return (
     <>
-      {detailNote === null ? (
+      {loading ? (
+        <p>Loading...</p>
+      ) : detailNote === null ? (
         <NotFound />
       ) : (
-        <Detail
-          detailNote={detailNote}
-          onArchive={onArchive}
-        />
+        <Detail detailNote={detailNote} />
       )}
     </>
   );
-};
-
-DetailPage.propTypes = {
-  onArchive: PropTypes.func.isRequired,
 };
 
 export default DetailPage;

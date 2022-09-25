@@ -4,7 +4,62 @@
   box-sizing: border-box;
 }
 
+.dark-theme {
+  color: #a5c9ca;
+  background-color: #2c3333;
+}
+
+.mid-dark-theme {
+  color: #e7f6f2;
+  background-color: #395b64;
+}
+
+.low-dark-theme {
+  background-color: #a5c9ca;
+}
+
+.low-dark-text {
+  color: #a5c9ca;
+}
+
+.light-theme {
+  background-color: #e7f6f2;
+}
+
+.blue-bg-theme {
+  background-color: #75c3ff;
+}
+
+.soft-blue-text,
+.soft-blue-text::-webkit-input-placeholder {
+  color: #75c3ff;
+}
+
+
+.dark-blue-bg-theme {
+  background: #25a0ff;
+}
+
+.light-text {
+  color: #e7f6f2;
+}
+
+.dark-text {
+  color: #2c3333;
+}
+
+.dark-blue-text {
+  color: #25a0ff;
+}
+
+.bold-text {
+  font-weight: 700;
+}
+
+button {
+  cursor: pointer;
+}
+
 body {
   font-family: "Roboto", sans-serif;
-  background-color: #eff8ff;
 }

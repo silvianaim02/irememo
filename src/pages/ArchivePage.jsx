@@ -26,7 +26,7 @@ const ArchivePage = ({
       setInitializing(false);
       setTimeout(() => {
         setLoading(false);
-      }, 500);
+      }, 350);
     };
     fetchData();
   }, []);

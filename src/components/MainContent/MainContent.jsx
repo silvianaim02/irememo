@@ -4,6 +4,7 @@ import CardList from "../CardList/CardList";
 import NewNoteButton from "../button/NewNoteButton";
 import PropTypes from "prop-types";
 import SearchBar from "../SearchBar/SearchBar";
+import LoadingSpinner from "../Spinner/LoadingSpinner";
 
 const MainContent = ({
   titleTop,
@@ -45,7 +46,7 @@ const MainContent = ({
         </div>
         <section className="active-section">
           {initializing ? null : loading ? (
-            <p>Loding</p>
+            <LoadingSpinner />
           ) : (
             <CardList
               notes={

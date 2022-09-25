@@ -4,6 +4,7 @@ import Detail from "../components/Detail/Detail";
 import NotFound from "./NotFound";
 import { getNote } from "../utils/api";
 import { useState } from "react";
+import LoadingSpinner from "../components/Spinner/LoadingSpinner";
 
 const DetailPage = () => {
   let { noteId } = useParams();
@@ -30,7 +31,7 @@ const DetailPage = () => {
   return (
     <>
       {loading ? (
-        <p>Loading...</p>
+        <LoadingSpinner />
       ) : nothingId ? (
         <NotFound />
       ) : (

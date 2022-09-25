@@ -27,7 +27,7 @@ const HomePage = ({
       setInitializing(false);
       setTimeout(() => {
         setLoading(false);
-      }, 500);
+      }, 350);
     };
     fetchData();
   }, []);

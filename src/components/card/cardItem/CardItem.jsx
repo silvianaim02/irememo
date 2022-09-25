@@ -14,7 +14,7 @@ const CardItem = ({ id, title, body, createdAt }) => {
     <>
       <div
         className={`card-item-wrapper ${
-          theme === "dark" ? "mid-dark-theme" : "light-theme"
+          theme === "dark" ? "mid-dark-theme shadow-for-dark" : "light-theme shadow-for-light"
         }`}
       >
         <div className="card-item-header">
